@@ -1,0 +1,96 @@
+﻿CHUTOKI FREE  -  version 1.0.0
+==============================
+Le ventilo qui fait chut.
+Créé par Radjouh Slim  -  slim.radjouh@gmail.com
+Logiciel gratuit, sans pub, licence MIT (voir LICENSE.txt).
+
+
+POURQUOI CHUTOKI ?
+------------------
+J'ai créé Chutoki parce qu'aucune application ne rendait vraiment mon PC
+silencieux : le bruit des ventilateurs réveillait mon fils. Alors je l'ai fait
+moi-même, avec l'aide de l'intelligence artificielle.
+Si moi j'ai pu le faire, toi aussi : lance-toi et crée tes propres outils !
+                                                                  - Slim
+
+
+CE QU'IL FAIT
+-------------
+Chutoki règle tout seul la vitesse des ventilateurs de ta carte mère :
+silencieux quand le PC se repose, plus fort quand il travaille.
+ - Calme  : chut, bébé dort (le plus silencieux, choisi par défaut)
+ - Auto   : je m'occupe de tout (Calme au repos, Normal pendant les jeux)
+ - Normal : bon équilibre
+ - Fort   : refroidit au maximum
+
+Le bébé te dit si tout va bien :
+ il dort (vert) = tout va bien  -  il se réveille (orange) = ça chauffe un peu
+ il pleure (rouge) = très chaud
+
+Langues : français, anglais, italien, espagnol, chinois, japonais
+(choisie automatiquement selon Windows, modifiable dans les réglages ⚙).
+
+
+CE QU'IL FAUT
+-------------
+ - Windows 10 ou 11, 64 bits.
+ - Un PC de bureau (sur les PC portables, les ventilateurs sont gérés par le
+   fabricant : l'appli affiche alors seulement les températures).
+ - Le petit pilote gratuit PawnIO, à installer une fois depuis son site officiel :
+   https://github.com/namazso/PawnIO.Setup/releases
+   (l'appli te propose le lien si besoin).
+
+
+INSTALLATION
+------------
+1. Décompresse le dossier où tu veux (par exemple C:\Programmes\Chutoki).
+2. Lance Chutoki.exe et accepte la demande Windows (droits administrateur :
+   nécessaires pour parler aux ventilateurs).
+3. Au premier lancement, indique comment ton processeur est refroidi.
+4. Coche « Démarrer avec Windows » si tu veux qu'il se lance tout seul.
+
+Garde tous les fichiers ensemble (le .exe, le .config et les .dll).
+
+
+GARDE-FOUS ET SÉCURITÉ
+----------------------
+ - Chauffe rapide : si la température grimpe d'un coup, les ventilateurs
+   réagissent immédiatement, sans attendre.
+ - Zone d'alerte : au-dessus d'environ 82 °C (processeur) ou 92 °C (carte
+   graphique), les ventilateurs suivent au moins le mode Normal.
+ - Calme renforcé : si le PC reste chaud 2 minutes en mode Calme, Chutoki passe
+   en Normal le temps qu'il refroidisse, puis revient au Calme.
+ - Urgence : si le processeur ou la carte graphique devient trop chaud, tous
+   les ventilateurs passent à fond immédiatement.
+ - Si un capteur ne répond plus, les ventilateurs passent à fond.
+ - Si un ventilateur s'arrête, son minimum est relevé et tu reçois une alerte.
+ - Les pompes de watercooling ne sont jamais ralenties par défaut.
+ - Quand tu quittes l'appli, ton PC reprend ses réglages habituels (BIOS).
+
+
+DÉSINSTALLATION
+---------------
+1. Décoche « Démarrer avec Windows ».
+2. Clic droit sur l'icône près de l'horloge > Quitter.
+3. Supprime le dossier de l'appli et le dossier %APPDATA%\Chutoki.
+(PawnIO se désinstalle séparément depuis « Applications installées » de Windows.)
+
+
+VIE PRIVÉE
+----------
+Aucune donnée personnelle n'est collectée. Pas de pub. L'appli n'envoie rien
+sur Internet. Tes réglages et rapports restent sur ton PC, dans %APPDATA%\Chutoki.
+
+
+AVERTISSEMENT
+-------------
+Ce logiciel est fourni « tel quel », sans aucune garantie. Il modifie la vitesse
+des ventilateurs : tu l'utilises sous ta responsabilité. En cas de doute, mets-le
+en pause (réglages avancés) ou quitte-le : le BIOS reprend la main.
+
+
+CONTACT
+-------
+Une question, un bug, une carte mère non reconnue ?
+Écris à slim.radjouh@gmail.com en indiquant ton processeur, ta carte graphique
+et ta carte mère (visibles dans les réglages avancés ⚙).

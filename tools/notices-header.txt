@@ -1,0 +1,69 @@
+﻿Chutoki Free - Composants de tiers / Third-party notices
+=============================================================
+
+Chutoki Free (c) 2026 Radjouh Slim est distribué sous licence MIT (LICENSE.txt).
+Il inclut les composants suivants, NON MODIFIÉS, chacun soumis à sa propre licence.
+It includes the following UNMODIFIED components, each under its own license.
+
+Composant / Component                    Version   Licence   Source
+--------------------------------------   -------   -------   ------------------------------------------------------
+LibreHardwareMonitorLib                  0.9.6     MPL-2.0   https://github.com/LibreHardwareMonitor/LibreHardwareMonitor
+DiskInfoToolkit                          1.1.2     MPL-2.0   https://github.com/Blacktempel/DiskInfoToolkit
+RAMSPDToolkit-NDD                        1.4.2     MPL-2.0   https://github.com/Blacktempel/RAMSPDToolkit
+BlackSharp.Core                          1.0.7     MPL-2.0   https://github.com/Blacktempel/BlackSharp
+HidSharp                                 2.6.4     Apache-2.0 https://software.seekye.com/hidsharp
+System.Memory                            4.6.3     MIT       https://github.com/dotnet/maintenance-packages
+System.Buffers                           4.6.1     MIT       https://github.com/dotnet/maintenance-packages
+System.Numerics.Vectors                  4.6.1     MIT       https://github.com/dotnet/maintenance-packages
+System.Runtime.CompilerServices.Unsafe   6.1.2     MIT       https://github.com/dotnet/maintenance-packages
+System.CodeDom                           10.0.2    MIT       https://github.com/dotnet/runtime
+System.Security.AccessControl            6.0.0     MIT       https://github.com/dotnet/runtime
+System.Security.Principal.Windows        5.0.0     MIT       https://github.com/dotnet/runtime
+System.Threading.AccessControl           10.0.3    MIT       https://github.com/dotnet/runtime
+
+Pilote PawnIO / PawnIO driver
+-----------------------------
+Le pilote PawnIO (auteur : namazso) N'EST PAS inclus ni redistribué par Chutoki.
+L'utilisateur l'installe lui-même depuis sa source officielle :
+The PawnIO driver (author: namazso) is NOT included or redistributed by Chutoki.
+Users install it themselves from its official source:
+  https://github.com/namazso/PawnIO.Setup/releases
+
+-------------------------------------------------------------------------------
+Mozilla Public License 2.0 (LibreHardwareMonitorLib, DiskInfoToolkit, RAMSPDToolkit-NDD, BlackSharp.Core)
+-------------------------------------------------------------------------------
+These files are subject to the terms of the Mozilla Public License, v. 2.0.
+If a copy of the MPL was not distributed with this file, you can obtain one at
+https://mozilla.org/MPL/2.0/
+The Source Code Form of these components is available at the URLs listed above
+(versions listed above, unmodified).
+
+Copyright (c) LibreHardwareMonitor contributors and Michael Möller.
+Copyright (c) Florian K. (Blacktempel) - DiskInfoToolkit, RAMSPDToolkit-NDD, BlackSharp.Core.
+
+-------------------------------------------------------------------------------
+MIT License (Microsoft .NET packages: System.*)
+-------------------------------------------------------------------------------
+Copyright (c) .NET Foundation and Contributors. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-------------------------------------------------------------------------------
+HidSharp - Apache License 2.0 (texte complet ci-dessous / full text below)
+-------------------------------------------------------------------------------

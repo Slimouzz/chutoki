@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chutoki – le ventilo qui fait chut</title>
+<meta name="description" content="Chutoki rend ton PC silencieux tout en le gardant au frais. Gratuit, sans pub, pour Windows 10 et 11.">
+<link rel="icon" href="img/logo.png">
+<meta property="og:title" content="Chutoki – le ventilo qui fait chut">
+<meta property="og:description" content="Ton PC silencieux, ton bébé qui dort. Gratuit, sans pub.">
+<meta property="og:image" content="img/logo.png">
+<style>
+:root {
+  --bg: #f6f7fb; --card: #ffffff; --txt: #1c1e26; --dim: #636a7a; --line: #e2e5ee;
+  --accent: #4f6bff; --accent2: #2c3eaa; --ok: #2eb872; --yellow: #ffec8c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #14161c; --card: #1f222b; --txt: #eceef2; --dim: #9aa1b0; --line: #30343f; }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--txt); font: 17px/1.6 "Segoe UI", system-ui, -apple-system, "Microsoft YaHei UI", "Yu Gothic UI", sans-serif; }
+a { color: var(--accent); }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+/* barre du haut */
+header { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; text-decoration: none; color: var(--txt); }
+.brand img { width: 36px; height: 36px; }
+select { font: inherit; font-size: 15px; padding: 6px 10px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); color: var(--txt); }
+
+/* accueil */
+.hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding: 40px 0 60px; }
+.hero h1 { font-size: clamp(40px, 7vw, 68px); line-height: 1.05; margin: 0 0 10px; letter-spacing: -1px; }
+.hero h1 span { color: var(--accent); }
+.tag { font-size: clamp(20px, 3vw, 26px); font-weight: 600; margin: 0 0 14px; }
+.lead { color: var(--dim); margin: 0 0 26px; font-size: 18px; }
+.btn { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; text-decoration: none; font-weight: 700; font-size: 19px;
+  padding: 16px 28px; border-radius: 16px; box-shadow: 0 8px 24px rgba(79,107,255,.35); transition: transform .15s, box-shadow .15s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(79,107,255,.45); }
+.btn svg { width: 22px; height: 22px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { background: var(--card); border: 1px solid var(--line); border-radius: 99px; padding: 4px 12px; font-size: 14px; color: var(--dim); }
+.shot { justify-self: center; position: relative; }
+.shot img { width: 100%; max-width: 340px; border-radius: 14px; box-shadow: 0 20px 50px rgba(20,30,80,.25); display: block; }
+.shot .baby { position: absolute; width: 96px; right: -48px; top: -64px; animation: float 4s ease-in-out infinite; filter: drop-shadow(0 8px 14px rgba(20,30,80,.3)); }
+@keyframes float { 50% { transform: translateY(-10px) rotate(-6deg); } }
+
+/* sections */
+section { padding: 50px 0; }
+h2 { font-size: clamp(26px, 4vw, 36px); margin: 0 0 24px; text-align: center; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 24px; }
+.card .ico { font-size: 34px; }
+.card h3 { margin: 8px 0 6px; font-size: 20px; }
+.card p { margin: 0; color: var(--dim); font-size: 16px; }
+
+.story { background: linear-gradient(135deg, #4f6bff, #2c3eaa); color: #fff; border-radius: 24px; padding: 40px; display: grid; grid-template-columns: 120px 1fr; gap: 30px; align-items: center; }
+.story img { width: 120px; }
+.story h2 { text-align: left; margin-bottom: 12px; }
+.story p { margin: 0 0 12px; font-size: 18px; }
+.story .sign { font-weight: 700; color: var(--yellow); }
+
+ol.steps { counter-reset: s; list-style: none; padding: 0; max-width: 720px; margin: 0 auto; }
+ol.steps li { counter-increment: s; position: relative; padding: 14px 0 14px 60px; border-bottom: 1px solid var(--line); }
+ol.steps li::before { content: counter(s); position: absolute; left: 0; top: 12px; width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; display: grid; place-items: center; }
+
+details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 18px; margin: 0 auto 10px; max-width: 720px; }
+summary { cursor: pointer; font-weight: 600; }
+details p { color: var(--dim); margin: 10px 0 0; }
+
+footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 30px 0 50px; color: var(--dim); font-size: 14px; }
+footer h4 { color: var(--txt); margin: 0 0 6px; font-size: 15px; }
+.foot { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding-top: 20px; text-align: center; }
+  .chips { justify-content: center; }
+  .shot .baby { width: 80px; right: -10px; }
+  .grid3, .foot { grid-template-columns: 1fr; }
+  .story { grid-template-columns: 1fr; text-align: center; padding: 28px 20px; }
+  .story img { margin: 0 auto; }
+  .story h2 { text-align: center; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="#"><img src="img/logo.png" alt="">Chutoki</a>
+    <select id="lang" aria-label="Langue / Language">
+      <option value="fr">Français</option><option value="en">English</option><option value="it">Italiano</option>
+      <option value="es">Español</option><option value="zh">中文</option><option value="ja">日本語</option>
+    </select>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1>Chut<span>oki</span></h1>
+      <p class="tag" data-t="tag"></p>
+      <p class="lead" data-t="lead"></p>
+      <a class="btn" id="dl" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+        <span data-t="dl"></span>
+      </a>
+      <div class="chips">
+        <span class="chip" data-t="c1"></span><span class="chip" data-t="c2"></span>
+        <span class="chip" data-t="c3"></span><span class="chip">v<span id="ver"></span></span>
+      </div>
+    </div>
+    <div class="shot">
+      <img id="shot" src="img/app-fr.png" alt="Chutoki">
+      <img class="baby" src="img/logo.png" alt="">
+    </div>
+  </div>
+
+  <section>
+    <h2 data-t="whyTitle"></h2>
+    <div class="grid3">
+      <div class="card"><div class="ico">🤫</div><h3 data-t="f1t"></h3><p data-t="f1"></p></div>
+      <div class="card"><div class="ico">🛡️</div><h3 data-t="f2t"></h3><p data-t="f2"></p></div>
+      <div class="card"><div class="ico">👶</div><h3 data-t="f3t"></h3><p data-t="f3"></p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="story">
+      <img src="img/logo.png" alt="">
+      <div>
+        <h2 data-t="storyTitle"></h2>
+        <p data-t="story1"></p>
+        <p data-t="story2"></p>
+        <p class="sign">— Slim</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <h2 data-t="instTitle"></h2>
+    <ol class="steps">
+      <li data-t="s1" data-html></li>
+      <li data-t="s2"></li>
+      <li data-t="s3"></li>
+      <li data-t="s4"></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2 data-t="faqTitle"></h2>
+    <details><summary data-t="q1"></summary><p data-t="a1"></p></details>
+    <details><summary data-t="q2"></summary><p data-t="a2"></p></details>
+    <details><summary data-t="q3"></summary><p data-t="a3"></p></details>
+    <details><summary data-t="q4"></summary><p data-t="a4"></p></details>
+    <details><summary data-t="q5"></summary><p data-t="a5"></p></details>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <div>
+        <h4 data-t="legalTitle"></h4>
+        <div data-t="legal"></div>
+        <div><span data-t="contact"></span> <a id="mail" href="#"></a></div>
+      </div>
+      <div>
+        <h4 data-t="privTitle"></h4>
+        <div data-t="priv"></div>
+        <div style="margin-top:10px">© 2026 Radjouh Slim · <span data-t="lic"></span></div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+// ===== à remplir une fois le dépôt GitHub créé =====
+const GITHUB_USER = "Slimouzz";
+const REPO = "chutoki";
+const VERSION = "1.0.0";
+// adresse découpée pour éviter les robots qui collectent les emails
+const MAIL = ["slim.radjouh", "gmail.com"];
+// ====================================================
+
+const T = {
+fr: {
+  tag: "Le ventilo qui fait chut.",
+  lead: "Chutoki rend ton PC silencieux tout en le gardant bien au frais. Un clic, et tes ventilateurs se calment.",
+  dl: "Télécharger gratuitement", c1: "Gratuit", c2: "Sans pub", c3: "Windows 10 et 11",
+  whyTitle: "Pourquoi tu vas l'adorer",
+  f1t: "Vraiment silencieux", f1: "Au repos, tes ventilateurs tournent au minimum. Fini le bruit qui réveille toute la maison.",
+  f2t: "Des garde-fous partout", f2: "Si ça chauffe vite ou trop, Chutoki réagit tout de suite. En cas d'urgence, tout passe à fond.",
+  f3t: "Simple comme bonjour", f3: "Quatre gros boutons et un bébé qui dort quand tout va bien. Même un enfant de 7 ans s'en sert.",
+  storyTitle: "L'histoire de Chutoki",
+  story1: "J'ai créé Chutoki parce qu'aucune application ne rendait vraiment mon PC silencieux : le bruit des ventilateurs réveillait mon fils. Alors je l'ai fait moi-même, avec l'aide de l'intelligence artificielle.",
+  story2: "Si moi j'ai pu le faire, toi aussi : lance-toi et crée tes propres outils !",
+  instTitle: "Installation en 4 étapes",
+  s1: "Installe le petit pilote gratuit <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a> (une seule fois).",
+  s2: "Télécharge Chutoki et décompresse le dossier où tu veux.",
+  s3: "Lance Chutoki.exe (l'icône du bébé) et accepte la demande de Windows.",
+  s4: "Dis comment ton processeur est refroidi, et c'est tout. Chut !",
+  faqTitle: "Questions fréquentes",
+  q1: "C'est vraiment gratuit ?", a1: "Oui, 100 % gratuit, sans pub et sans inscription.",
+  q2: "Est-ce que c'est dangereux pour mon PC ?", a2: "Chutoki surveille les températures en permanence : si ça chauffe, les ventilateurs accélèrent, et en cas d'urgence ils passent à fond. Quand tu le fermes, ton PC reprend ses réglages habituels. Il est fourni sans garantie, comme la plupart des logiciels gratuits.",
+  q3: "Ça marche sur un PC portable ?", a3: "Sur un portable, les ventilateurs sont gérés par le fabricant : Chutoki affiche seulement les températures. Il est fait pour les PC de bureau.",
+  q4: "Ma carte graphique ou mon processeur sont compatibles ?", a4: "Chutoki fonctionne avec les processeurs Intel et AMD et les cartes graphiques NVIDIA, AMD et Intel. Il pilote les ventilateurs branchés sur la carte mère ; la plupart des cartes mères récentes sont reconnues.",
+  q5: "Pourquoi Windows affiche un avertissement ?", a5: "Chutoki est récent et pas encore « signé » numériquement (un certificat payant). Clique sur « Informations complémentaires » puis « Exécuter quand même ».",
+  legalTitle: "Mentions légales", legal: "Éditeur : Radjouh Slim (particulier). Hébergement : GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis.",
+  contact: "Contact :", privTitle: "Vie privée",
+  priv: "Ce site n'utilise ni cookies ni statistiques. L'application ne collecte aucune donnée personnelle et n'envoie rien sur Internet.",
+  lic: "Licence MIT"
+},
+en: {
+  tag: "The fan that goes shhh.",
+  lead: "Chutoki makes your PC quiet while keeping it nice and cool. One click, and your fans calm down.",
+  dl: "Free download", c1: "Free", c2: "No ads", c3: "Windows 10 & 11",
+  whyTitle: "Why you'll love it",
+  f1t: "Truly quiet", f1: "At rest, your fans spin at their minimum. No more noise waking up the whole house.",
+  f2t: "Safeguards everywhere", f2: "If things heat up fast or too much, Chutoki reacts right away. In an emergency, everything goes to full speed.",
+  f3t: "Simple as can be", f3: "Four big buttons and a baby that sleeps when all is well. Even a 7-year-old can use it.",
+  storyTitle: "The story of Chutoki",
+  story1: "I made Chutoki because no app could make my PC truly quiet: the fan noise kept waking up my son. So I built it myself, with the help of artificial intelligence.",
+  story2: "If I could do it, so can you: go for it and build your own tools!",
+  instTitle: "Install in 4 steps",
+  s1: "Install the small free <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a> driver (just once).",
+  s2: "Download Chutoki and unzip the folder anywhere.",
+  s3: "Run Chutoki.exe (the baby icon) and accept the Windows prompt.",
+  s4: "Tell it how your CPU is cooled, and that's it. Shhh!",
+  faqTitle: "FAQ",
+  q1: "Is it really free?", a1: "Yes, 100% free, no ads, no sign-up.",
+  q2: "Is it dangerous for my PC?", a2: "Chutoki watches temperatures all the time: if things heat up, fans speed up, and in an emergency they go to full speed. When you close it, your PC goes back to its usual settings. It is provided without warranty, like most free software.",
+  q3: "Does it work on a laptop?", a3: "Laptop fans are managed by the manufacturer: Chutoki only shows temperatures there. It is made for desktop PCs.",
+  q4: "Is my graphics card or CPU supported?", a4: "Chutoki works with Intel and AMD CPUs and NVIDIA, AMD and Intel graphics cards. It controls the fans plugged into the motherboard; most recent motherboards are supported.",
+  q5: "Why does Windows show a warning?", a5: "Chutoki is new and not yet digitally \"signed\" (a paid certificate). Click \"More info\" then \"Run anyway\".",
+  legalTitle: "Legal notice", legal: "Publisher: Radjouh Slim (individual). Hosting: GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.",
+  contact: "Contact:", privTitle: "Privacy",
+  priv: "This site uses no cookies and no analytics. The app collects no personal data and sends nothing over the Internet.",
+  lic: "MIT License"
+},
+it: {
+  tag: "La ventola che fa shhh.",
+  lead: "Chutoki rende il tuo PC silenzioso mantenendolo fresco. Un clic e le ventole si calmano.",
+  dl: "Scarica gratis", c1: "Gratis", c2: "Senza pubblicità", c3: "Windows 10 e 11",
+  whyTitle: "Perché ti piacerà",
+  f1t: "Davvero silenzioso", f1: "A riposo, le ventole girano al minimo. Basta rumore che sveglia tutta la casa.",
+  f2t: "Protezioni ovunque", f2: "Se scalda in fretta o troppo, Chutoki reagisce subito. In emergenza, tutto va al massimo.",
+  f3t: "Semplicissimo", f3: "Quattro grandi pulsanti e un bimbo che dorme quando va tutto bene. Lo usa anche un bambino di 7 anni.",
+  storyTitle: "La storia di Chutoki",
+  story1: "Ho creato Chutoki perché nessuna app rendeva davvero silenzioso il mio PC: il rumore delle ventole svegliava mio figlio. Così l'ho fatto da solo, con l'aiuto dell'intelligenza artificiale.",
+  story2: "Se ci sono riuscito io, puoi farlo anche tu: lanciati e crea i tuoi strumenti!",
+  instTitle: "Installazione in 4 passi",
+  s1: "Installa il piccolo driver gratuito <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a> (una sola volta).",
+  s2: "Scarica Chutoki ed estrai la cartella dove vuoi.",
+  s3: "Avvia Chutoki.exe (l'icona del bimbo) e accetta la richiesta di Windows.",
+  s4: "Indica come è raffreddata la CPU, ed è fatta. Shhh!",
+  faqTitle: "Domande frequenti",
+  q1: "È davvero gratis?", a1: "Sì, gratis al 100%, senza pubblicità e senza registrazione.",
+  q2: "È pericoloso per il mio PC?", a2: "Chutoki controlla sempre le temperature: se scalda, le ventole accelerano, e in emergenza vanno al massimo. Quando lo chiudi, il PC torna alle sue impostazioni abituali. È fornito senza garanzia, come la maggior parte dei software gratuiti.",
+  q3: "Funziona su un portatile?", a3: "Sui portatili le ventole sono gestite dal produttore: Chutoki mostra solo le temperature. È pensato per i PC fissi.",
+  q4: "La mia scheda video o CPU è compatibile?", a4: "Chutoki funziona con CPU Intel e AMD e schede video NVIDIA, AMD e Intel. Controlla le ventole collegate alla scheda madre; la maggior parte delle schede madri recenti è supportata.",
+  q5: "Perché Windows mostra un avviso?", a5: "Chutoki è nuovo e non ancora \"firmato\" digitalmente (un certificato a pagamento). Clicca \"Ulteriori informazioni\" e poi \"Esegui comunque\".",
+  legalTitle: "Note legali", legal: "Editore: Radjouh Slim (privato). Hosting: GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.",
+  contact: "Contatto:", privTitle: "Privacy",
+  priv: "Questo sito non usa cookie né statistiche. L'app non raccoglie dati personali e non invia nulla su Internet.",
+  lic: "Licenza MIT"
+},
+es: {
+  tag: "El ventilador que hace chis.",
+  lead: "Chutoki hace que tu PC sea silencioso y siga fresco. Un clic y tus ventiladores se calman.",
+  dl: "Descargar gratis", c1: "Gratis", c2: "Sin anuncios", c3: "Windows 10 y 11",
+  whyTitle: "Por qué te va a encantar",
+  f1t: "Silencio de verdad", f1: "En reposo, tus ventiladores giran al mínimo. Se acabó el ruido que despierta a toda la casa.",
+  f2t: "Protecciones por todas partes", f2: "Si se calienta rápido o demasiado, Chutoki reacciona al instante. En una emergencia, todo va al máximo.",
+  f3t: "Facilísimo", f3: "Cuatro botones grandes y un bebé que duerme cuando todo va bien. Hasta un niño de 7 años sabe usarlo.",
+  storyTitle: "La historia de Chutoki",
+  story1: "Creé Chutoki porque ninguna aplicación hacía que mi PC fuera realmente silencioso: el ruido de los ventiladores despertaba a mi hijo. Así que lo hice yo mismo, con la ayuda de la inteligencia artificial.",
+  story2: "Si yo pude hacerlo, tú también: ¡anímate y crea tus propias herramientas!",
+  instTitle: "Instalación en 4 pasos",
+  s1: "Instala el pequeño controlador gratuito <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a> (solo una vez).",
+  s2: "Descarga Chutoki y descomprime la carpeta donde quieras.",
+  s3: "Abre Chutoki.exe (el icono del bebé) y acepta el aviso de Windows.",
+  s4: "Indica cómo se refrigera tu CPU, y listo. ¡Chis!",
+  faqTitle: "Preguntas frecuentes",
+  q1: "¿De verdad es gratis?", a1: "Sí, 100 % gratis, sin anuncios y sin registro.",
+  q2: "¿Es peligroso para mi PC?", a2: "Chutoki vigila las temperaturas todo el tiempo: si se calienta, los ventiladores aceleran, y en una emergencia van al máximo. Al cerrarlo, tu PC vuelve a sus ajustes habituales. Se ofrece sin garantía, como la mayoría del software gratuito.",
+  q3: "¿Funciona en un portátil?", a3: "En los portátiles, los ventiladores los gestiona el fabricante: Chutoki solo muestra las temperaturas. Está hecho para PC de sobremesa.",
+  q4: "¿Mi tarjeta gráfica o CPU son compatibles?", a4: "Chutoki funciona con CPU Intel y AMD y tarjetas gráficas NVIDIA, AMD e Intel. Controla los ventiladores conectados a la placa base; la mayoría de placas recientes son compatibles.",
+  q5: "¿Por qué Windows muestra un aviso?", a5: "Chutoki es nuevo y aún no está \"firmado\" digitalmente (un certificado de pago). Haz clic en \"Más información\" y luego en \"Ejecutar de todas formas\".",
+  legalTitle: "Aviso legal", legal: "Editor: Radjouh Slim (particular). Alojamiento: GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, EE. UU.",
+  contact: "Contacto:", privTitle: "Privacidad",
+  priv: "Este sitio no usa cookies ni estadísticas. La aplicación no recoge datos personales y no envía nada por Internet.",
+  lic: "Licencia MIT"
+},
+zh: {
+  tag: "会说“嘘”的风扇。",
+  lead: "Chutoki 让你的电脑安静又凉爽。点一下，风扇就安静下来。",
+  dl: "免费下载", c1: "免费", c2: "无广告", c3: "Windows 10 和 11",
+  whyTitle: "你会爱上它的理由",
+  f1t: "真正的安静", f1: "空闲时风扇以最低转速运行，再也不会吵醒全家人。",
+  f2t: "全方位保护", f2: "温度上升过快或过高时，Chutoki 立即响应。紧急情况下，所有风扇全速运转。",
+  f3t: "简单易用", f3: "四个大按钮，一切正常时宝宝在睡觉。7 岁的孩子也会用。",
+  storyTitle: "Chutoki 的故事",
+  story1: "我做 Chutoki，是因为没有一款软件能让我的电脑真正安静：风扇的噪音总是吵醒我的儿子。于是我在人工智能的帮助下，自己动手做了它。",
+  story2: "我能做到，你也能：大胆去做，创造属于你自己的工具吧！",
+  instTitle: "4 步安装",
+  s1: "安装免费的小驱动 <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a>（只需一次）。",
+  s2: "下载 Chutoki，解压到任意文件夹。",
+  s3: "运行 Chutoki.exe（宝宝图标），并在 Windows 提示时点击“是”。",
+  s4: "选择 CPU 的散热方式，就完成了。嘘！",
+  faqTitle: "常见问题",
+  q1: "真的免费吗？", a1: "是的，完全免费，无广告，无需注册。",
+  q2: "会损坏我的电脑吗？", a2: "Chutoki 持续监控温度：温度升高时风扇加速，紧急情况下全速运转。关闭后电脑恢复原来的设置。和大多数免费软件一样，本软件不提供任何保证。",
+  q3: "笔记本电脑可以用吗？", a3: "笔记本的风扇由厂商管理：Chutoki 只会显示温度。它是为台式机设计的。",
+  q4: "我的显卡或 CPU 兼容吗？", a4: "Chutoki 支持 Intel 和 AMD 处理器，以及 NVIDIA、AMD 和 Intel 显卡。它控制连接在主板上的风扇，支持大多数较新的主板。",
+  q5: "为什么 Windows 会显示警告？", a5: "Chutoki 是新软件，还没有数字签名（需要付费证书）。点击“更多信息”，然后点击“仍要运行”。",
+  legalTitle: "法律声明", legal: "发布者：Radjouh Slim（个人）。托管：GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA。",
+  contact: "联系方式：", privTitle: "隐私",
+  priv: "本网站不使用 Cookie 和统计工具。本软件不收集任何个人数据，也不会通过互联网发送任何内容。",
+  lic: "MIT 许可证"
+},
+ja: {
+  tag: "「しーっ」と言うファン。",
+  lead: "Chutoki はPCを静かに、そして涼しく保ちます。ワンクリックでファンが静かになります。",
+  dl: "無料ダウンロード", c1: "無料", c2: "広告なし", c3: "Windows 10・11",
+  whyTitle: "おすすめの理由",
+  f1t: "本当に静か", f1: "待機中はファンが最低速度で回転。家族を起こす騒音とはお別れです。",
+  f2t: "しっかり保護", f2: "急に、または熱くなりすぎたら Chutoki がすぐに反応。緊急時はすべて全開になります。",
+  f3t: "とてもかんたん", f3: "大きなボタンが4つと、順調なときは眠っている赤ちゃん。7歳の子どもでも使えます。",
+  storyTitle: "Chutoki のストーリー",
+  story1: "Chutoki を作ったのは、PCを本当に静かにしてくれるアプリがなかったからです。ファンの音で息子が目を覚ましてしまうのです。そこで、AIの力を借りて自分で作りました。",
+  story2: "私にできたのだから、あなたにもできます。自分だけのツールを作ってみましょう！",
+  instTitle: "4ステップでインストール",
+  s1: "無料の小さなドライバー <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a> をインストール（最初の1回だけ）。",
+  s2: "Chutoki をダウンロードして、好きな場所に展開します。",
+  s3: "Chutoki.exe（赤ちゃんのアイコン）を起動し、Windows の確認で「はい」を押します。",
+  s4: "CPUの冷却方法を選べば完了。しーっ！",
+  faqTitle: "よくある質問",
+  q1: "本当に無料ですか？", a1: "はい、完全無料・広告なし・登録不要です。",
+  q2: "PCに危険はありませんか？", a2: "Chutoki は常に温度を監視しています。熱くなるとファンが速くなり、緊急時は全開になります。終了するとPCはいつもの設定に戻ります。多くの無料ソフトと同様、無保証で提供されます。",
+  q3: "ノートPCでも使えますか？", a3: "ノートPCのファンはメーカーが管理しているため、Chutoki は温度の表示のみ行います。デスクトップPC向けです。",
+  q4: "グラフィックボードやCPUは対応していますか？", a4: "Intel・AMD のCPUと、NVIDIA・AMD・Intel のグラフィックボードに対応しています。マザーボードに接続されたファンを制御し、最近のほとんどのマザーボードに対応しています。",
+  q5: "Windows が警告を表示するのはなぜ？", a5: "Chutoki は新しいソフトで、まだデジタル署名（有料の証明書）がありません。「詳細情報」→「実行」をクリックしてください。",
+  legalTitle: "法的表示", legal: "発行者：Radjouh Slim（個人）。ホスティング：GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA。",
+  contact: "連絡先：", privTitle: "プライバシー",
+  priv: "このサイトは Cookie やアクセス解析を使用していません。アプリは個人データを収集せず、インターネットに何も送信しません。",
+  lic: "MIT ライセンス"
+}
+};
+
+const sel = document.getElementById("lang");
+function pickLang() {
+  let saved = null;
+  try { saved = localStorage.getItem("lang"); } catch (e) {}
+  if (saved && T[saved]) return saved;
+  for (const l of (navigator.languages || [navigator.language || "en"])) {
+    const k = l.slice(0, 2).toLowerCase(); if (T[k]) return k;
+  }
+  return "en";
+}
+function apply(l) {
+  const d = T[l];
+  document.documentElement.lang = l;
+  document.querySelectorAll("[data-t]").forEach(el => {
+    const v = d[el.dataset.t]; if (v === undefined) return;
+    if (el.hasAttribute("data-html")) el.innerHTML = v; else el.textContent = v;
+  });
+  document.getElementById("shot").src = "img/app-" + l + ".png";
+  document.title = "Chutoki – " + d.tag.replace(/[.。]$/, "");
+  sel.value = l;
+}
+sel.addEventListener("change", () => { try { localStorage.setItem("lang", sel.value); } catch (e) {} apply(sel.value); });
+
+document.getElementById("ver").textContent = VERSION;
+document.getElementById("dl").href = "https://github.com/" + GITHUB_USER + "/" + REPO + "/releases/latest/download/Chutoki-Free-win-x64.zip";
+const m = MAIL.join("@"), a = document.getElementById("mail");
+a.textContent = m; a.href = "mailto:" + m + "?subject=Chutoki";
+apply(pickLang());
+</script>
+</body>
+</html>
