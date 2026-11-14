@@ -13,6 +13,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.ServiceProcess;
@@ -26,9 +27,9 @@ using LibreHardwareMonitor.Hardware;
 [assembly: AssemblyDescription("Chutoki Free - le ventilo qui fait chut")]
 [assembly: AssemblyCompany("Radjouh Slim")]
 [assembly: AssemblyCopyright("Copyright (c) 2026 Radjouh Slim - Licence MIT")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyInformationalVersion("1.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
+[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyInformationalVersion("1.1.0")]
 
 namespace Chutoki {
 
@@ -36,7 +37,9 @@ namespace Chutoki {
 static class App {
     public const string Name = "Chutoki";
     public const string Edition = "Free";
-    public const string Version = "1.0.0";
+    public const string Version = "1.1.0";
+    public const string Site = "https://slimouzz.github.io/chutoki/";
+    public const string NewsUrl = Site + "news.json";
     public const string Author = "Radjouh Slim";
     public const string Email = "slim.radjouh@gmail.com";
     public const string Year = "2026";
@@ -537,6 +540,63 @@ class Engine {
     public void Close() { RestoreAll(); try { if (Comp != null) Comp.Close(); } catch { } }
 }
 
+// ====================================================================== nouveautés (nouvelle version, messages)
+// Une fois par jour, l'appli lit le petit fichier public news.json sur le site de Chutoki.
+// Rien n'est envoyé sur l'utilisateur (pas d'identifiant, pas de statistiques).
+// Exemple de news.json :
+// { "latest": "1.1.0", "url": "https://slimouzz.github.io/chutoki/",
+//   "message": { "id": "2026-11-20", "text": { "fr": "Coucou !", "en": "Hi!" }, "url": "https://..." } }
+class News {
+    public string Latest, Url, MsgId, MsgText, MsgUrl;
+    public bool HasUpdate { get { return Newer(Latest, App.Version); } }
+
+    public static bool Newer(string a, string b) {
+        Version x, y;
+        return a != null && Version.TryParse(a, out x) && Version.TryParse(b, out y) && x > y;
+    }
+    // On n'ouvre que des liens https, pour ne jamais lancer autre chose qu'une page web
+    static string SafeUrl(object o) {
+        string s = o as string;
+        return s != null && s.StartsWith("https://", StringComparison.OrdinalIgnoreCase) && s.Length < 500 ? s : null;
+    }
+    static string Text(object o) {
+        string s = o as string; if (s == null) return null;
+        s = s.Trim(); return s.Length == 0 ? null : s.Length > 280 ? s.Substring(0, 280) : s;
+    }
+
+    public static News Fetch() {
+        try {
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+            var req = (HttpWebRequest)WebRequest.Create(App.NewsUrl);
+            req.UserAgent = "Chutoki/" + App.Version; req.Timeout = 10000; req.ReadWriteTimeout = 10000;
+            req.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
+            string json;
+            using (var resp = req.GetResponse()) using (var sr = new StreamReader(resp.GetResponseStream(), System.Text.Encoding.UTF8)) {
+                var buf = new char[32768]; int n = sr.ReadBlock(buf, 0, buf.Length); json = new string(buf, 0, n);
+            }
+            var o = new System.Web.Script.Serialization.JavaScriptSerializer().DeserializeObject(json) as Dictionary<string, object>;
+            if (o == null) return null;
+            var nw = new News();
+            object v;
+            if (o.TryGetValue("latest", out v)) nw.Latest = v as string;
+            nw.Url = o.TryGetValue("url", out v) ? SafeUrl(v) : null;
+            if (nw.Url == null) nw.Url = App.Site;
+            Dictionary<string, object> m = o.TryGetValue("message", out v) ? v as Dictionary<string, object> : null;
+            if (m != null) {
+                nw.MsgId = m.TryGetValue("id", out v) ? Text(v) : null;
+                var t = m.TryGetValue("text", out v) ? v as Dictionary<string, object> : null;
+                if (t != null) {
+                    object s;
+                    nw.MsgText = (t.TryGetValue(App.Lang, out s) ? Text(s) : null) ?? (t.TryGetValue("en", out s) ? Text(s) : null) ?? (t.TryGetValue("fr", out s) ? Text(s) : null);
+                }
+                nw.MsgUrl = m.TryGetValue("url", out v) ? SafeUrl(v) : null;
+                if (nw.MsgId == null || nw.MsgText == null) nw.MsgId = nw.MsgText = nw.MsgUrl = null;
+            }
+            return nw;
+        } catch { return null; }
+    }
+}
+
 // ====================================================================== rapport et journal d'alertes
 class Report {
     readonly Engine e; readonly string csv, log;
@@ -739,7 +799,7 @@ class WelcomeForm : Form {
 // ====================================================================== à propos
 class AboutForm : Form {
     public AboutForm() {
-        Theme.Prepare(this, 460, 720, App.T("À propos", "About"));
+        Theme.Prepare(this, 460, 770, App.T("À propos", "About"));
         StartPosition = FormStartPosition.CenterParent; MinimizeBox = false; ShowInTaskbar = false;
         int y = 22;
         var lName = new Label { Text = App.Name, Left = 28, Top = y, AutoSize = true, Font = Theme.Semi(20f) };
@@ -759,21 +819,23 @@ class AboutForm : Form {
         Controls.Add(new Label { Left = 28, Top = y, Width = 404, Height = 130, Font = Theme.F(9.5f),
             Text = App.T(Story.Fr, Story.En) });
         y += 138;
-        Controls.Add(new Label { Left = 28, Top = y, Width = 404, Height = 210, ForeColor = Theme.Dim, Font = Theme.F(8.5f),
+        Controls.Add(new Label { Left = 28, Top = y, Width = 404, Height = 262, ForeColor = Theme.Dim, Font = Theme.F(8.5f),
             Text = App.T(
                 "Ce logiciel est gratuit, sans pub, et fourni « tel quel », sans aucune garantie. Il modifie la vitesse des ventilateurs de ta carte mère : tu l'utilises sous ta responsabilité. " +
-                "Des garde-fous font réagir les ventilateurs si ça chauffe, et ton PC reprend ses réglages quand l'appli est fermée.\n\n" +
-                "Vie privée : aucune donnée personnelle n'est collectée. L'appli n'envoie rien sur Internet ; tes réglages et rapports restent sur ton PC (dossier %APPDATA%\\Chutoki).\n\n" +
-                "Composants utilisés : LibreHardwareMonitor (MPL-2.0), pilote PawnIO (namazso), HidSharp (Apache-2.0), bibliothèques .NET (MIT) et autres — détails dans « Composants tiers ».",
+                "Des garde-fous font réagir les ventilateurs si ça chauffe, et ton PC reprend ses réglages quand l'appli est fermée.",
                 "This software is free, ad-free, and provided \"as is\", without any warranty. It changes your motherboard fan speeds: you use it at your own risk. " +
-                "Safeguards make the fans react if things heat up, and your PC returns to its own settings when the app is closed.\n\n" +
-                "Privacy: no personal data is collected. The app sends nothing over the Internet; your settings and reports stay on your PC (folder %APPDATA%\\Chutoki).\n\n" +
+                "Safeguards make the fans react if things heat up, and your PC returns to its own settings when the app is closed.") + "\n\n" +
+              App.T(
+                "Vie privée : aucune donnée personnelle n'est collectée. Une fois par jour, l'appli lit un petit fichier sur le site de Chutoki pour savoir s'il y a une nouvelle version ou un message (désactivable dans ⚙) ; rien sur toi n'est envoyé. Tes réglages et rapports restent sur ton PC (%APPDATA%\\Chutoki).",
+                "Privacy: no personal data is collected. Once a day, the app reads a small file on the Chutoki website to check for a new version or a message (can be turned off in ⚙); nothing about you is sent. Your settings and reports stay on your PC (%APPDATA%\\Chutoki).") + "\n\n" +
+              App.T(
+                "Composants utilisés : LibreHardwareMonitor (MPL-2.0), pilote PawnIO (namazso), HidSharp (Apache-2.0), bibliothèques .NET (MIT) et autres — détails dans « Composants tiers ».",
                 "Components: LibreHardwareMonitor (MPL-2.0), PawnIO driver (namazso), HidSharp (Apache-2.0), .NET libraries (MIT) and others — see \"Third-party\".") });
-        var bLic = Theme.Btn(App.T("Licence", "License"), 28, 664, 120);
+        var bLic = Theme.Btn(App.T("Licence", "License"), 28, 714, 120);
         bLic.Click += delegate { App.Open(Path.Combine(App.Dir, "LICENSE.txt")); };
-        var b3 = Theme.Btn(App.T("Composants tiers", "Third-party"), 156, 664, 150);
+        var b3 = Theme.Btn(App.T("Composants tiers", "Third-party"), 156, 714, 150);
         b3.Click += delegate { App.Open(Path.Combine(App.Dir, "THIRD-PARTY-NOTICES.txt")); };
-        var bOk = Theme.Btn("OK", 332, 664, 100, 34, true);
+        var bOk = Theme.Btn("OK", 332, 714, 100, 34, true);
         bOk.Click += delegate { Close(); };
         Controls.Add(bLic); Controls.Add(b3); Controls.Add(bOk);
         AcceptButton = bOk;
@@ -791,7 +853,7 @@ class AdvancedForm : Form {
 
     public AdvancedForm(Engine engine, Settings s, Report r, string cool) {
         e = engine; cfg = s; rep = r; cooling = cool;
-        Theme.Prepare(this, 760, 640, App.T("Réglages avancés", "Advanced settings"));
+        Theme.Prepare(this, 760, 668, App.T("Réglages avancés", "Advanced settings"));
         StartPosition = FormStartPosition.CenterScreen;
 
         lInfo = new Label { Left = 20, Top = 14, Width = 720, Height = 40, ForeColor = Theme.Dim, Font = Theme.F(9f) };
@@ -836,6 +898,10 @@ class AdvancedForm : Form {
         var cbTray = new CheckBox { Text = App.T("La croix garde l'appli près de l'horloge", "Closing keeps the app near the clock"), Left = 20, Top = 612, AutoSize = true, ForeColor = Theme.Dim, Font = Theme.F(9f),
             Checked = cfg.Get("tray", "1") == "1" };
         cbTray.CheckedChanged += delegate { cfg.Set("tray", cbTray.Checked ? "1" : "0"); };
+        var cbNews = new CheckBox { Text = App.T("Rechercher les nouveautés (une fois par jour)", "Check for news once a day"), Left = 20, Top = 638, AutoSize = true, ForeColor = Theme.Dim, Font = Theme.F(9f),
+            Checked = cfg.Get("news", "1") == "1" };
+        cbNews.CheckedChanged += delegate { cfg.Set("news", cbNews.Checked ? "1" : "0"); };
+        Controls.Add(cbNews);
         var bClose = Theme.Btn(App.T("Fermer", "Close"), 610, 570, 130, 34, true);
         bClose.Click += delegate { Close(); };
         // langue (automatique selon Windows, modifiable ici)
@@ -976,6 +1042,24 @@ class MainForm : Form {
         };
         Controls.Add(cbAuto);
 
+        // bandeau des nouveautés (nouvelle version ou message), caché tant qu'il n'y a rien
+        banner = new Label { Left = 20, Top = 628, Width = 360, Height = 46, Visible = false, BackColor = Theme.Accent, ForeColor = Theme.AccentTxt,
+            Font = Theme.Semi(9.5f), TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(10, 0, 30, 0), Cursor = Cursors.Hand, AutoEllipsis = true };
+        var bannerX = new Label { Text = "×", Left = 334, Top = 0, Width = 26, Height = 46, BackColor = Theme.Accent, ForeColor = Theme.AccentTxt,
+            Font = new Font("Segoe UI", 13f), TextAlign = ContentAlignment.MiddleCenter, Cursor = Cursors.Hand };
+        new ToolTip().SetToolTip(bannerX, App.T("Masquer", "Hide"));
+        banner.Controls.Add(bannerX);
+        banner.Click += delegate {
+            if (bannerMsgId != null) { if (bannerUrl != null) App.Open(bannerUrl); cfg.Set("msg.seen", bannerMsgId); RefreshBanner(false); }
+            else if (bannerUrl != null) App.Open(bannerUrl);
+        };
+        bannerX.Click += delegate {
+            if (bannerMsgId != null) cfg.Set("msg.seen", bannerMsgId);
+            else if (news != null && news.Latest != null) cfg.Set("update.skip", news.Latest);
+            RefreshBanner(false);
+        };
+        Controls.Add(banner);
+
         // zone de notification
         var menu = new ContextMenuStrip();
         menu.Items.Add(App.T("Ouvrir", "Open"), null, delegate { ShowMain(); });
@@ -1003,11 +1087,68 @@ class MainForm : Form {
         timer.Tick += delegate { Tick(); };
         if (!App.Preview) timer.Start();
         Tick();
+
+        // nouveautés : première vérification 30 s après le démarrage, puis une fois par jour
+        newsTimer = new System.Windows.Forms.Timer { Interval = 30000 };
+        newsTimer.Tick += delegate { CheckNews(); };
+        if (!App.Preview) newsTimer.Start();
         SystemEvents.SessionEnding += delegate { rep.Save(); e.RestoreAll(); };
         if (!App.Preview) {
             Shown += delegate { WarnIfNeeded(); };
             if (startHidden) WarnIfNeeded();
         }
+    }
+
+    // ---------- nouveautés
+    readonly Label banner; readonly System.Windows.Forms.Timer newsTimer;
+    string bannerUrl, bannerMsgId; News news; DateTime nextNews = DateTime.MinValue; bool fetching;
+
+    void CheckNews() {
+        if (cfg.Get("news", "1") != "1") { if (banner.Visible) HideBanner(); return; }
+        if (fetching || DateTime.Now < nextNews) return;
+        fetching = true;
+        System.Threading.ThreadPool.QueueUserWorkItem(delegate {
+            var n = News.Fetch();
+            try { BeginInvoke((Action)delegate { fetching = false; nextNews = DateTime.Now.AddHours(n == null ? 1 : 24); ApplyNews(n); }); } catch { }
+        });
+    }
+    public void ApplyNews(News n) { if (n == null) return; news = n; RefreshBanner(true); }
+
+    void RefreshBanner(bool notify) {
+        var n = news;
+        if (n == null) { HideBanner(); return; }
+        if (n.HasUpdate && cfg.Get("update.skip", "") != n.Latest) {
+            ShowBanner(App.T("Nouvelle version {0} disponible ! Clique pour la télécharger.", "New version {0} available! Click to download.", n.Latest), n.Url, null);
+            if (notify && !App.Preview && cfg.Get("update.notified", "") != n.Latest) {
+                cfg.Set("update.notified", n.Latest);
+                tray.ShowBalloonTip(8000, App.Name, banner.Text, ToolTipIcon.Info);
+            }
+            return;
+        }
+        if (n.MsgId != null && cfg.Get("msg.seen", "") != n.MsgId) {
+            ShowBanner(n.MsgText, n.MsgUrl, n.MsgId);
+            if (notify && !App.Preview && cfg.Get("msg.notified", "") != n.MsgId) {
+                cfg.Set("msg.notified", n.MsgId);
+                tray.ShowBalloonTip(8000, App.Name + " — " + App.T("Message de Chutoki", "News from Chutoki"), n.MsgText, ToolTipIcon.Info);
+            }
+            return;
+        }
+        HideBanner();
+    }
+    // la fenêtre s'agrandit juste ce qu'il faut pour le bandeau (k = échelle d'affichage)
+    void ShowBanner(string text, string url, string msgId) {
+        banner.Text = text; bannerUrl = url; bannerMsgId = msgId;
+        new ToolTip().SetToolTip(banner, text);
+        if (banner.Visible) return;
+        float k = banner.Height / 46f;
+        banner.Visible = true;
+        ClientSize = new Size(ClientSize.Width, ClientSize.Height + (int)Math.Round(56 * k));
+    }
+    void HideBanner() {
+        if (!banner.Visible) return;
+        float k = banner.Height / 46f;
+        banner.Visible = false;
+        ClientSize = new Size(ClientSize.Width, ClientSize.Height - (int)Math.Round(56 * k));
     }
 
     public AdvancedForm Advanced() { if (adv == null || adv.IsDisposed) adv = new AdvancedForm(e, cfg, rep, cooling); return adv; }
@@ -1126,6 +1267,8 @@ static class Program {
         using (var w = new WelcomeForm("unknown")) shot(w, "0-welcome");
         using (var a = new AboutForm()) shot(a, "2-about");
         shot(main.Advanced(), "3-advanced");
+        main.ApplyNews(new News { Latest = "9.9.0", Url = App.Site });
+        shot(main, "4-news");
         main.HideTray();
     }
 
@@ -1158,7 +1301,7 @@ static class Program {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Upgrade();
-            if (cfg.Get("accepted", "") != App.Version) {
+            if (cfg.Get("accepted", "") == "") {
                 using (var w = new WelcomeForm(cfg.Get("cooling", "unknown"))) {
                     if (w.ShowDialog() != DialogResult.OK) return;
                     cfg.Set("cooling", w.Cooling);

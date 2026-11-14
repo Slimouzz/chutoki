@@ -1,4 +1,4 @@
-﻿CHUTOKI FREE  -  version 1.0.0
+CHUTOKI FREE  -  version 1.1.0
 ==============================
 The fan that goes shhh.
 Made by Radjouh Slim  -  slim.radjouh@gmail.com
@@ -76,7 +76,9 @@ UNINSTALL
 
 PRIVACY
 -------
-No personal data is collected. No ads. The app sends nothing over the Internet.
+No personal data is collected. No ads. Once a day, the app only reads a small file
+on the Chutoki website (news.json) to check for a new version or a message;
+nothing about you is sent. You can turn this off in the ⚙ settings.
 Your settings and reports stay on your PC, in %APPDATA%\Chutoki.
 
 

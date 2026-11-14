@@ -105,25 +105,31 @@ static class Tr {
           "そこで、AIの力を借りて自分で作りました。\n\n" +
           "私にできたのだから、あなたにもできます。自分だけのツールを作ってみましょう！   — Slim");
         A("This software is free, ad-free, and provided \"as is\", without any warranty. It changes your motherboard fan speeds: you use it at your own risk. " +
-          "Safeguards make the fans react if things heat up, and your PC returns to its own settings when the app is closed.\n\n" +
-          "Privacy: no personal data is collected. The app sends nothing over the Internet; your settings and reports stay on your PC (folder %APPDATA%\\Chutoki).\n\n" +
-          "Components: LibreHardwareMonitor (MPL-2.0), PawnIO driver (namazso), HidSharp (Apache-2.0), .NET libraries (MIT) and others — see \"Third-party\".",
+          "Safeguards make the fans react if things heat up, and your PC returns to its own settings when the app is closed.",
           "Questo software è gratuito, senza pubblicità e fornito \"così com'è\", senza alcuna garanzia. Modifica la velocità delle ventole della scheda madre: lo usi a tuo rischio. " +
-          "Le protezioni fanno reagire le ventole se scalda, e il PC torna alle sue impostazioni quando l'app è chiusa.\n\n" +
-          "Privacy: nessun dato personale viene raccolto. L'app non invia nulla su Internet; impostazioni e rapporti restano sul tuo PC (cartella %APPDATA%\\Chutoki).\n\n" +
-          "Componenti: LibreHardwareMonitor (MPL-2.0), driver PawnIO (namazso), HidSharp (Apache-2.0), librerie .NET (MIT) e altri — vedi \"Componenti di terzi\".",
+          "Le protezioni fanno reagire le ventole se scalda, e il PC torna alle sue impostazioni quando l'app è chiusa.",
           "Este software es gratuito, sin anuncios y se ofrece \"tal cual\", sin ninguna garantía. Cambia la velocidad de los ventiladores de tu placa base: lo usas bajo tu responsabilidad. " +
-          "Las protecciones hacen reaccionar a los ventiladores si se calienta, y tu PC vuelve a sus ajustes al cerrar la aplicación.\n\n" +
-          "Privacidad: no se recoge ningún dato personal. La aplicación no envía nada por Internet; tus ajustes e informes se quedan en tu PC (carpeta %APPDATA%\\Chutoki).\n\n" +
-          "Componentes: LibreHardwareMonitor (MPL-2.0), controlador PawnIO (namazso), HidSharp (Apache-2.0), bibliotecas .NET (MIT) y otros — ver \"Componentes de terceros\".",
+          "Las protecciones hacen reaccionar a los ventiladores si se calienta, y tu PC vuelve a sus ajustes al cerrar la aplicación.",
           "本软件免费、无广告，按“原样”提供，不含任何保证。它会改变主板风扇的转速：使用风险由你自行承担。" +
-          "温度升高时，保护机制会让风扇及时响应；关闭软件后，电脑恢复原来的设置。\n\n" +
-          "隐私：不收集任何个人数据。软件不会通过互联网发送任何内容；你的设置和报告保存在你的电脑上（文件夹 %APPDATA%\\Chutoki）。\n\n" +
-          "组件：LibreHardwareMonitor (MPL-2.0)、PawnIO 驱动 (namazso)、HidSharp (Apache-2.0)、.NET 库 (MIT) 等 — 详见“第三方组件”。",
+          "温度升高时，保护机制会让风扇及时响应；关闭软件后，电脑恢复原来的设置。",
           "このソフトは無料・広告なしで、「現状のまま」無保証で提供されます。マザーボードのファン速度を変更するため、自己責任でご使用ください。" +
-          "熱くなると保護機能がファンを反応させ、アプリを終了するとPCは元の設定に戻ります。\n\n" +
-          "プライバシー：個人データは一切収集しません。アプリはインターネットに何も送信せず、設定とレポートはPC内（%APPDATA%\\Chutoki フォルダー）に保存されます。\n\n" +
+          "熱くなると保護機能がファンを反応させ、アプリを終了するとPCは元の設定に戻ります。");
+        A("Privacy: no personal data is collected. Once a day, the app reads a small file on the Chutoki website to check for a new version or a message (can be turned off in ⚙); nothing about you is sent. Your settings and reports stay on your PC (%APPDATA%\\Chutoki).",
+          "Privacy: nessun dato personale viene raccolto. Una volta al giorno l'app legge un piccolo file sul sito di Chutoki per sapere se c'è una nuova versione o un messaggio (disattivabile in ⚙); nulla su di te viene inviato. Impostazioni e rapporti restano sul tuo PC (%APPDATA%\\Chutoki).",
+          "Privacidad: no se recoge ningún dato personal. Una vez al día, la aplicación lee un pequeño archivo en la web de Chutoki para saber si hay una nueva versión o un mensaje (se puede desactivar en ⚙); no se envía nada sobre ti. Tus ajustes e informes se quedan en tu PC (%APPDATA%\\Chutoki).",
+          "隐私：不收集任何个人数据。软件每天读取一次 Chutoki 网站上的一个小文件，以检查是否有新版本或消息（可在 ⚙ 中关闭）；不会发送任何关于你的信息。你的设置和报告保存在你的电脑上（%APPDATA%\\Chutoki）。",
+          "プライバシー：個人データは一切収集しません。1日1回、新しいバージョンやお知らせがあるか Chutoki のサイト上の小さなファイルを読み込みます（⚙ でオフにできます）。あなたに関する情報は何も送信されません。設定とレポートはPC内（%APPDATA%\\Chutoki）に保存されます。");
+        A("Components: LibreHardwareMonitor (MPL-2.0), PawnIO driver (namazso), HidSharp (Apache-2.0), .NET libraries (MIT) and others — see \"Third-party\".",
+          "Componenti: LibreHardwareMonitor (MPL-2.0), driver PawnIO (namazso), HidSharp (Apache-2.0), librerie .NET (MIT) e altri — vedi \"Componenti di terzi\".",
+          "Componentes: LibreHardwareMonitor (MPL-2.0), controlador PawnIO (namazso), HidSharp (Apache-2.0), bibliotecas .NET (MIT) y otros — ver \"Componentes de terceros\".",
+          "组件：LibreHardwareMonitor (MPL-2.0)、PawnIO 驱动 (namazso)、HidSharp (Apache-2.0)、.NET 库 (MIT) 等 — 详见“第三方组件”。",
           "コンポーネント：LibreHardwareMonitor (MPL-2.0)、PawnIO ドライバー (namazso)、HidSharp (Apache-2.0)、.NET ライブラリ (MIT) など — 「サードパーティ」を参照。");
+
+        // --- nouveautés
+        A("New version {0} available! Click to download.", "Nuova versione {0} disponibile! Clicca per scaricarla.", "¡Nueva versión {0} disponible! Haz clic para descargarla.", "新版本 {0} 已发布！点击下载。", "新しいバージョン {0} があります！クリックしてダウンロード。");
+        A("News from Chutoki", "Novità da Chutoki", "Novedades de Chutoki", "来自 Chutoki 的消息", "Chutoki からのお知らせ");
+        A("Hide", "Nascondi", "Ocultar", "隐藏", "非表示");
+        A("Check for news once a day", "Cerca novità una volta al giorno", "Buscar novedades una vez al día", "每天检查一次更新", "1日1回お知らせを確認");
         A("License", "Licenza", "Licencia", "许可证", "ライセンス");
         A("Third-party", "Componenti di terzi", "Componentes de terceros", "第三方组件", "サードパーティ");
 

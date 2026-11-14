@@ -1,4 +1,4 @@
-﻿CHUTOKI FREE  -  version 1.0.0
+CHUTOKI FREE  -  version 1.1.0
 ==============================
 Le ventilo qui fait chut.
 Créé par Radjouh Slim  -  slim.radjouh@gmail.com
@@ -78,8 +78,11 @@ DÉSINSTALLATION
 
 VIE PRIVÉE
 ----------
-Aucune donnée personnelle n'est collectée. Pas de pub. L'appli n'envoie rien
-sur Internet. Tes réglages et rapports restent sur ton PC, dans %APPDATA%\Chutoki.
+Aucune donnée personnelle n'est collectée. Pas de pub. Une fois par jour, l'appli
+lit seulement un petit fichier sur le site de Chutoki (news.json) pour savoir
+s'il existe une nouvelle version ou un message ; rien sur toi n'est envoyé.
+Tu peux couper cette vérification dans les réglages ⚙.
+Tes réglages et rapports restent sur ton PC, dans %APPDATA%\Chutoki.
 
 
 AVERTISSEMENT
