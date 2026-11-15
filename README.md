@@ -80,3 +80,5 @@ MIT © 2026 Radjouh Slim — voir / see [LICENSE.txt](LICENSE.txt).
 Composants tiers / Third-party components: [THIRD-PARTY-NOTICES.txt](THIRD-PARTY-NOTICES.txt) (LibreHardwareMonitor MPL-2.0, HidSharp Apache-2.0, .NET MIT). PawnIO n'est pas redistribué / is not redistributed.
 
 Fourni « tel quel », sans garantie / Provided "as is", without warranty.
+
+Signature du code / Code signing: voir / see [CODE_SIGNING.md](CODE_SIGNING.md).
