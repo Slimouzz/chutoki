@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Installer Inno Setup (si absent)
         shell: pwsh
@@ -32,7 +32,7 @@ jobs:
         run: Get-FileHash Chutoki-Setup.exe, Chutoki-Free-win-x64.zip -Algorithm SHA256 | Format-Table -AutoSize
 
       - name: Publier les fichiers compilés (artifacts)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: chutoki-${{ github.ref_name }}
           path: |
