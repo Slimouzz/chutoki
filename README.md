@@ -81,4 +81,4 @@ Composants tiers / Third-party components: [THIRD-PARTY-NOTICES.txt](THIRD-PARTY
 
 Fourni « tel quel », sans garantie / Provided "as is", without warranty.
 
-Signature du code / Code signing: voir / see [CODE_SIGNING.md](CODE_SIGNING.md).
+Signature du code / Code signing: free code signing provided by [SignPath.io](https://about.signpath.io), certificate by [SignPath Foundation](https://signpath.org) (application in progress / candidature en cours) — voir / see [CODE_SIGNING.md](CODE_SIGNING.md).
