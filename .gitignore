@@ -3,3 +3,6 @@ dist/
 *.zip
 # réglages locaux de l'éditeur / de Claude
 .claude/
+
+# installateur généré par build.ps1
+Chutoki-Setup*.exe

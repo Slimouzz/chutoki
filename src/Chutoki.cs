@@ -1165,6 +1165,16 @@ class MainForm : Form {
         newsTimer = new System.Windows.Forms.Timer { Interval = 30000 };
         newsTimer.Tick += delegate { CheckNews(); };
         if (!App.Preview) newsTimer.Start();
+
+        // fermeture propre demandée par l'installateur (Chutoki.exe --quit)
+        if (!App.Preview) {
+            var quitEvent = new EventWaitHandle(false, EventResetMode.AutoReset, Program.QuitEventName);
+            var waiter = new Thread(() => {
+                quitEvent.WaitOne();
+                try { BeginInvoke((Action)delegate { exiting = true; Close(); }); } catch { }
+            }) { IsBackground = true };
+            waiter.Start();
+        }
         SystemEvents.SessionEnding += delegate { rep.Save(); e.RestoreAll(); };
         if (!App.Preview) {
             Shown += delegate { WarnIfNeeded(); };
@@ -1358,11 +1368,25 @@ static class Program {
         if (hadTask && !App.AutostartEnabled()) App.SetAutostart(true);
     }
 
+    public const string QuitEventName = "Global\\ChutokiQuit";
+
     [STAThread]
     static void Main(string[] args) {
         if (args.Length >= 2 && args[0] == "--preview") {
             Application.EnableVisualStyles(); Application.SetCompatibleTextRenderingDefault(false);
             PreviewShots(args[1], args.Length >= 3 ? args[2] : "fr");
+            return;
+        }
+        // --quit : demande à l'instance en cours de se fermer proprement (ventilateurs rendus au BIOS).
+        // Utilisé par l'installateur avant une mise à jour ou une désinstallation.
+        if (args.Any(a => a == "--quit")) {
+            try {
+                EventWaitHandle ev;
+                if (EventWaitHandle.TryOpenExisting(QuitEventName, out ev)) {
+                    ev.Set();
+                    for (int i = 0; i < 50 && Process.GetProcessesByName("Chutoki").Any(p => p.Id != Process.GetCurrentProcess().Id); i++) Thread.Sleep(200);
+                }
+            } catch { }
             return;
         }
         bool created;

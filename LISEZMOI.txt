@@ -43,6 +43,8 @@ CE QU'IL FAUT
 
 INSTALLATION
 ------------
+Le plus simple : télécharge Chutoki-Setup.exe sur le site, lance-le et clique
+sur « Suivant » (il installe aussi PawnIO si besoin). Sinon, version portable :
 1. Décompresse le dossier où tu veux (par exemple C:\Programmes\Chutoki).
 2. Lance Chutoki.exe et accepte la demande Windows (droits administrateur :
    nécessaires pour parler aux ventilateurs).

@@ -36,4 +36,11 @@ Compress-Archive -Path "$dist\*" -DestinationPath $zip
 # nom fixe utilisé par le bouton du site (releases/latest/download/...)
 Copy-Item $zip (Join-Path $root "Chutoki-Free-win-x64.zip") -Force
 "ZIP -> $zip"
+# Installateur (Inno Setup 6) : Chutoki-Setup.exe à la racine du projet
+$iscc = @("$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe", "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe", "$env:ProgramFiles\Inno Setup 6\ISCC.exe") | ? { Test-Path $_ } | Select -First 1
+if ($iscc) {
+    & $iscc /Q "/DAppVersion=$version" (Join-Path $root 'installer\chutoki.iss')
+    if ($LASTEXITCODE -ne 0) { throw "Installateur échoué" }
+    "SETUP -> $(Join-Path $root 'Chutoki-Setup.exe')"
+} else { "(Inno Setup absent : pas d'installateur)" }
 "OK -> $dist"

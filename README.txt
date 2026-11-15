@@ -42,6 +42,8 @@ REQUIREMENTS
 
 INSTALL
 -------
+Easiest: download Chutoki-Setup.exe from the website, run it and click "Next"
+(it also installs PawnIO if needed). Otherwise, portable version:
 1. Unzip the folder anywhere (for example C:\Program Files\Chutoki).
 2. Run Chutoki.exe and accept the Windows prompt (administrator rights are
    needed to talk to the fans).

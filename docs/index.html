@@ -109,7 +109,7 @@ footer h4 { color: var(--txt); margin: 0 0 6px; font-size: 15px; }
       </a>
       <div class="chips">
         <span class="chip" data-t="c1"></span><span class="chip" data-t="c2"></span>
-        <span class="chip" data-t="c3"></span><span class="chip">v<span id="ver"></span></span>
+        <span class="chip" data-t="c3"></span><span class="chip">v<span id="ver"></span></span><a class="chip" id="zip" href="#" data-t="portable"></a>
       </div>
     </div>
     <div class="shot">
@@ -196,9 +196,9 @@ fr: {
   story1: "J'ai créé Chutoki parce qu'aucune application ne rendait vraiment mon PC silencieux : le bruit des ventilateurs réveillait mon fils. Alors je l'ai fait moi-même, avec l'aide de l'intelligence artificielle.",
   story2: "Si moi j'ai pu le faire, toi aussi : lance-toi et crée tes propres outils !",
   instTitle: "Installation en 4 étapes",
-  s1: "Installe le petit pilote gratuit <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a> (une seule fois).",
-  s2: "Télécharge Chutoki et décompresse le dossier où tu veux.",
-  s3: "Lance Chutoki.exe (l'icône du bébé) et accepte la demande de Windows.",
+  s1: "Télécharge <b>Chutoki-Setup.exe</b> avec le gros bouton bleu.", portable: "Version portable (zip)",
+  s2: "Lance-le et clique sur « Suivant » : il installe aussi le petit pilote gratuit PawnIO si besoin.",
+  s3: "Ouvre Chutoki (l'icône du bébé) et accepte la demande de Windows.",
   s4: "Dis comment ton processeur est refroidi, et c'est tout. Chut !",
   faqTitle: "Questions fréquentes",
   q1: "C'est vraiment gratuit ?", a1: "Oui, 100 % gratuit, sans pub et sans inscription.",
@@ -223,9 +223,9 @@ en: {
   story1: "I made Chutoki because no app could make my PC truly quiet: the fan noise kept waking up my son. So I built it myself, with the help of artificial intelligence.",
   story2: "If I could do it, so can you: go for it and build your own tools!",
   instTitle: "Install in 4 steps",
-  s1: "Install the small free <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a> driver (just once).",
-  s2: "Download Chutoki and unzip the folder anywhere.",
-  s3: "Run Chutoki.exe (the baby icon) and accept the Windows prompt.",
+  s1: "Download <b>Chutoki-Setup.exe</b> with the big blue button.", portable: "Portable version (zip)",
+  s2: "Run it and click \"Next\": it also installs the small free PawnIO driver if needed.",
+  s3: "Open Chutoki (the baby icon) and accept the Windows prompt.",
   s4: "Tell it how your CPU is cooled, and that's it. Shhh!",
   faqTitle: "FAQ",
   q1: "Is it really free?", a1: "Yes, 100% free, no ads, no sign-up.",
@@ -250,9 +250,9 @@ it: {
   story1: "Ho creato Chutoki perché nessuna app rendeva davvero silenzioso il mio PC: il rumore delle ventole svegliava mio figlio. Così l'ho fatto da solo, con l'aiuto dell'intelligenza artificiale.",
   story2: "Se ci sono riuscito io, puoi farlo anche tu: lanciati e crea i tuoi strumenti!",
   instTitle: "Installazione in 4 passi",
-  s1: "Installa il piccolo driver gratuito <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a> (una sola volta).",
-  s2: "Scarica Chutoki ed estrai la cartella dove vuoi.",
-  s3: "Avvia Chutoki.exe (l'icona del bimbo) e accetta la richiesta di Windows.",
+  s1: "Scarica <b>Chutoki-Setup.exe</b> con il grande pulsante blu.", portable: "Versione portatile (zip)",
+  s2: "Avvialo e clicca \"Avanti\": installa anche il piccolo driver gratuito PawnIO se serve.",
+  s3: "Apri Chutoki (l'icona del bimbo) e accetta la richiesta di Windows.",
   s4: "Indica come è raffreddata la CPU, ed è fatta. Shhh!",
   faqTitle: "Domande frequenti",
   q1: "È davvero gratis?", a1: "Sì, gratis al 100%, senza pubblicità e senza registrazione.",
@@ -277,9 +277,9 @@ es: {
   story1: "Creé Chutoki porque ninguna aplicación hacía que mi PC fuera realmente silencioso: el ruido de los ventiladores despertaba a mi hijo. Así que lo hice yo mismo, con la ayuda de la inteligencia artificial.",
   story2: "Si yo pude hacerlo, tú también: ¡anímate y crea tus propias herramientas!",
   instTitle: "Instalación en 4 pasos",
-  s1: "Instala el pequeño controlador gratuito <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a> (solo una vez).",
-  s2: "Descarga Chutoki y descomprime la carpeta donde quieras.",
-  s3: "Abre Chutoki.exe (el icono del bebé) y acepta el aviso de Windows.",
+  s1: "Descarga <b>Chutoki-Setup.exe</b> con el gran botón azul.", portable: "Versión portátil (zip)",
+  s2: "Ábrelo y pulsa \"Siguiente\": también instala el pequeño controlador gratuito PawnIO si hace falta.",
+  s3: "Abre Chutoki (el icono del bebé) y acepta el aviso de Windows.",
   s4: "Indica cómo se refrigera tu CPU, y listo. ¡Chis!",
   faqTitle: "Preguntas frecuentes",
   q1: "¿De verdad es gratis?", a1: "Sí, 100 % gratis, sin anuncios y sin registro.",
@@ -304,9 +304,9 @@ zh: {
   story1: "我做 Chutoki，是因为没有一款软件能让我的电脑真正安静：风扇的噪音总是吵醒我的儿子。于是我在人工智能的帮助下，自己动手做了它。",
   story2: "我能做到，你也能：大胆去做，创造属于你自己的工具吧！",
   instTitle: "4 步安装",
-  s1: "安装免费的小驱动 <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a>（只需一次）。",
-  s2: "下载 Chutoki，解压到任意文件夹。",
-  s3: "运行 Chutoki.exe（宝宝图标），并在 Windows 提示时点击“是”。",
+  s1: "点击蓝色大按钮下载 <b>Chutoki-Setup.exe</b>。", portable: "便携版（zip）",
+  s2: "运行它并点击“下一步”：如有需要，它还会安装免费的小驱动 PawnIO。",
+  s3: "打开 Chutoki（宝宝图标），并在 Windows 提示时点击“是”。",
   s4: "选择 CPU 的散热方式，就完成了。嘘！",
   faqTitle: "常见问题",
   q1: "真的免费吗？", a1: "是的，完全免费，无广告，无需注册。",
@@ -331,9 +331,9 @@ ja: {
   story1: "Chutoki を作ったのは、PCを本当に静かにしてくれるアプリがなかったからです。ファンの音で息子が目を覚ましてしまうのです。そこで、AIの力を借りて自分で作りました。",
   story2: "私にできたのだから、あなたにもできます。自分だけのツールを作ってみましょう！",
   instTitle: "4ステップでインストール",
-  s1: "無料の小さなドライバー <a href=\"https://github.com/namazso/PawnIO.Setup/releases/latest\" target=\"_blank\" rel=\"noopener\">PawnIO</a> をインストール（最初の1回だけ）。",
-  s2: "Chutoki をダウンロードして、好きな場所に展開します。",
-  s3: "Chutoki.exe（赤ちゃんのアイコン）を起動し、Windows の確認で「はい」を押します。",
+  s1: "青い大きなボタンで <b>Chutoki-Setup.exe</b> をダウンロード。", portable: "ポータブル版（zip）",
+  s2: "起動して「次へ」をクリック。必要なら無料の小さなドライバー PawnIO もインストールします。",
+  s3: "Chutoki（赤ちゃんのアイコン）を開き、Windows の確認で「はい」を押します。",
   s4: "CPUの冷却方法を選べば完了。しーっ！",
   faqTitle: "よくある質問",
   q1: "本当に無料ですか？", a1: "はい、完全無料・広告なし・登録不要です。",
@@ -373,7 +373,9 @@ function apply(l) {
 sel.addEventListener("change", () => { try { localStorage.setItem("lang", sel.value); } catch (e) {} apply(sel.value); });
 
 document.getElementById("ver").textContent = VERSION;
-document.getElementById("dl").href = "https://github.com/" + GITHUB_USER + "/" + REPO + "/releases/latest/download/Chutoki-Free-win-x64.zip";
+const REL = "https://github.com/" + GITHUB_USER + "/" + REPO + "/releases/latest/download/";
+document.getElementById("dl").href = REL + "Chutoki-Setup.exe";
+document.getElementById("zip").href = REL + "Chutoki-Free-win-x64.zip";
 const m = MAIL.join("@"), a = document.getElementById("mail");
 a.textContent = m; a.href = "mailto:" + m + "?subject=Chutoki";
 apply(pickLang());
