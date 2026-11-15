@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chutoki – Compatibilité</title>
+<meta name="description" content="Cartes mères et PC testés avec Chutoki.">
+<link rel="icon" href="img/logo.png">
+<style>
+:root { --bg:#f6f7fb; --card:#fff; --txt:#1c1e26; --dim:#636a7a; --line:#e2e5ee; --accent:#4f6bff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#14161c; --card:#1f222b; --txt:#eceef2; --dim:#9aa1b0; --line:#30343f; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--txt); font:16px/1.6 "Segoe UI", system-ui, -apple-system, "Microsoft YaHei UI", "Yu Gothic UI", sans-serif; }
+a { color: var(--accent); }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px 60px; }
+header { display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:12px; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:20px; text-decoration:none; color:var(--txt); }
+.brand img { width:36px; height:36px; }
+select { font:inherit; font-size:15px; padding:6px 10px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--txt); }
+h1 { font-size: clamp(28px, 5vw, 42px); margin: 20px 0 8px; }
+.lead { color: var(--dim); margin: 0 0 24px; }
+.legend { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:16px; color:var(--dim); font-size:15px; }
+.tablewrap { overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:16px; }
+table { width:100%; border-collapse:collapse; min-width:640px; }
+th, td { text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top; }
+th { color:var(--dim); font-weight:600; font-size:14px; }
+tr:last-child td { border-bottom:none; }
+.cta { margin-top:28px; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px; }
+.cta h2 { margin:0 0 8px; font-size:22px; }
+.btn { display:inline-block; margin-top:10px; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; padding:12px 20px; border-radius:12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="brand" href="./"><img src="img/logo.png" alt="">Chutoki</a>
+    <select id="lang" aria-label="Langue / Language">
+      <option value="fr">Français</option><option value="en">English</option><option value="it">Italiano</option>
+      <option value="es">Español</option><option value="zh">中文</option><option value="ja">日本語</option>
+    </select>
+  </header>
+
+  <h1 data-t="title"></h1>
+  <p class="lead" data-t="lead"></p>
+  <div class="legend"><span data-t="lgOk"></span><span data-t="lgPart"></span><span data-t="lgNo"></span></div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th data-t="hBoard"></th><th data-t="hCpu"></th><th data-t="hGpu"></th><th data-t="hResult"></th><th data-t="hVer"></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <div class="cta">
+    <h2 data-t="ctaTitle"></h2>
+    <div data-t="cta"></div>
+    <a class="btn" href="https://github.com/Slimouzz/chutoki/issues/new?template=test-report.yml" target="_blank" rel="noopener" data-t="ctaBtn"></a>
+  </div>
+</div>
+
+<script>
+// ===== Configurations testées : ajouter une ligne par rapport reçu =====
+// r: "ok" (tout marche), "part" (marche en partie), "no" (non reconnu)
+const ROWS = [
+  { board: "ASRock X870 Steel Legend WiFi (Nuvoton NCT6686D)", cpu: "AMD Ryzen 5 9600X", gpu: "AMD Radeon RX 7900 GRE", r: "ok", note: { fr: "PC de l'auteur", en: "Author's PC" }, v: "1.1.0" }
+];
+// =======================================================================
+
+const T = {
+  fr: { title: "Compatibilité", lead: "Les PC sur lesquels Chutoki a été testé par de vrais utilisateurs. La liste grandit grâce à vos rapports de test.",
+        lgOk: "✅ fonctionne", lgPart: "⚠️ fonctionne en partie", lgNo: "❌ non reconnu",
+        hBoard: "Carte mère", hCpu: "Processeur", hGpu: "Carte graphique", hResult: "Résultat", hVer: "Version",
+        ctaTitle: "Ta carte mère n'est pas dans la liste ?", cta: "Teste Chutoki et envoie ton rapport : dans l'appli, ouvre ⚙ puis « 📨 Envoyer un rapport de test ». Ça prend 30 secondes et ça aide tout le monde !",
+        ctaBtn: "Envoyer un rapport de test" },
+  en: { title: "Compatibility", lead: "PCs on which Chutoki has been tested by real users. The list grows thanks to your test reports.",
+        lgOk: "✅ works", lgPart: "⚠️ partly works", lgNo: "❌ not detected",
+        hBoard: "Motherboard", hCpu: "CPU", hGpu: "Graphics card", hResult: "Result", hVer: "Version",
+        ctaTitle: "Your motherboard isn't listed?", cta: "Test Chutoki and send your report: in the app, open ⚙ then \"📨 Send a test report\". It takes 30 seconds and helps everyone!",
+        ctaBtn: "Send a test report" },
+  it: { title: "Compatibilità", lead: "I PC su cui Chutoki è stato provato da utenti reali. La lista cresce grazie ai vostri rapporti di test.",
+        lgOk: "✅ funziona", lgPart: "⚠️ funziona in parte", lgNo: "❌ non riconosciuta",
+        hBoard: "Scheda madre", hCpu: "Processore", hGpu: "Scheda video", hResult: "Risultato", hVer: "Versione",
+        ctaTitle: "La tua scheda madre non è nella lista?", cta: "Prova Chutoki e invia il tuo rapporto: nell'app, apri ⚙ e poi \"📨 Invia un rapporto di test\". Bastano 30 secondi e aiuta tutti!",
+        ctaBtn: "Invia un rapporto di test" },
+  es: { title: "Compatibilidad", lead: "Los PC en los que usuarios reales han probado Chutoki. La lista crece gracias a vuestros informes de prueba.",
+        lgOk: "✅ funciona", lgPart: "⚠️ funciona en parte", lgNo: "❌ no reconocida",
+        hBoard: "Placa base", hCpu: "Procesador", hGpu: "Tarjeta gráfica", hResult: "Resultado", hVer: "Versión",
+        ctaTitle: "¿Tu placa base no está en la lista?", cta: "Prueba Chutoki y envía tu informe: en la aplicación, abre ⚙ y luego \"📨 Enviar un informe de prueba\". ¡Son 30 segundos y ayuda a todos!",
+        ctaBtn: "Enviar un informe de prueba" },
+  zh: { title: "兼容性", lead: "真实用户测试过 Chutoki 的电脑。你的测试报告会让这份列表越来越长。",
+        lgOk: "✅ 正常工作", lgPart: "⚠️ 部分工作", lgNo: "❌ 无法识别",
+        hBoard: "主板", hCpu: "处理器", hGpu: "显卡", hResult: "结果", hVer: "版本",
+        ctaTitle: "你的主板不在列表中？", cta: "测试 Chutoki 并发送报告：在软件中打开 ⚙，然后点击“📨 发送测试报告”。只需 30 秒，就能帮助所有人！",
+        ctaBtn: "发送测试报告" },
+  ja: { title: "対応状況", lead: "実際のユーザーが Chutoki をテストしたPCの一覧です。テストレポートのおかげでリストが増えていきます。",
+        lgOk: "✅ 動作", lgPart: "⚠️ 一部動作", lgNo: "❌ 未検出",
+        hBoard: "マザーボード", hCpu: "CPU", hGpu: "グラフィックボード", hResult: "結果", hVer: "バージョン",
+        ctaTitle: "お使いのマザーボードがリストにない？", cta: "Chutoki を試してレポートを送ってください。アプリで ⚙ を開き、「📨 テストレポートを送る」をクリック。30秒でみんなの役に立ちます！",
+        ctaBtn: "テストレポートを送る" }
+};
+const ICON = { ok: "✅", part: "⚠️", no: "❌" };
+const sel = document.getElementById("lang");
+function pickLang() {
+  let s = null; try { s = localStorage.getItem("lang"); } catch (e) {}
+  if (s && T[s]) return s;
+  for (const l of (navigator.languages || [navigator.language || "en"])) { const k = l.slice(0, 2).toLowerCase(); if (T[k]) return k; }
+  return "en";
+}
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+function apply(l) {
+  const d = T[l]; document.documentElement.lang = l; sel.value = l;
+  document.querySelectorAll("[data-t]").forEach(el => { if (d[el.dataset.t] !== undefined) el.textContent = d[el.dataset.t]; });
+  document.title = "Chutoki – " + d.title;
+  document.getElementById("rows").innerHTML = ROWS.map(r => {
+    const note = r.note ? (r.note[l] || r.note.en || "") : "";
+    return "<tr><td>" + esc(r.board) + "</td><td>" + esc(r.cpu) + "</td><td>" + esc(r.gpu) + "</td><td>" + ICON[r.r] + (note ? " " + esc(note) : "") + "</td><td>" + esc(r.v) + "</td></tr>";
+  }).join("");
+}
+sel.addEventListener("change", () => { try { localStorage.setItem("lang", sel.value); } catch (e) {} apply(sel.value); });
+apply(pickLang());
+</script>
+</body>
+</html>

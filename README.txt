@@ -1,7 +1,7 @@
-CHUTOKI FREE  -  version 1.1.0
+CHUTOKI FREE  -  version 1.2.0
 ==============================
 The fan that goes shhh.
-Made by Radjouh Slim  -  slim.radjouh@gmail.com
+Made by Radjouh Slim  -  contact-chutoki@proton.me
 Free software, no ads, MIT license (see LICENSE.txt).
 
 
@@ -92,5 +92,5 @@ it: the BIOS takes over again.
 CONTACT
 -------
 Question, bug, unsupported motherboard?
-Write to slim.radjouh@gmail.com with your CPU, graphics card and motherboard
+Write to contact-chutoki@proton.me with your CPU, graphics card and motherboard
 (shown in the advanced settings ⚙).

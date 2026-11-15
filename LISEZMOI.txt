@@ -1,7 +1,7 @@
-CHUTOKI FREE  -  version 1.1.0
+CHUTOKI FREE  -  version 1.2.0
 ==============================
 Le ventilo qui fait chut.
-Créé par Radjouh Slim  -  slim.radjouh@gmail.com
+Créé par Radjouh Slim  -  contact-chutoki@proton.me
 Logiciel gratuit, sans pub, licence MIT (voir LICENSE.txt).
 
 
@@ -95,5 +95,5 @@ en pause (réglages avancés) ou quitte-le : le BIOS reprend la main.
 CONTACT
 -------
 Une question, un bug, une carte mère non reconnue ?
-Écris à slim.radjouh@gmail.com en indiquant ton processeur, ta carte graphique
+Écris à contact-chutoki@proton.me en indiquant ton processeur, ta carte graphique
 et ta carte mère (visibles dans les réglages avancés ⚙).

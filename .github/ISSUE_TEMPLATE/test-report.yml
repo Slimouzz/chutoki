@@ -1,0 +1,56 @@
+name: "🧪 Rapport de test / Test report"
+description: "J'ai testé Chutoki sur mon PC / I tested Chutoki on my PC"
+title: "[Test] "
+labels: ["test-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Merci de tester Chutoki !** Le plus simple : dans Chutoki, ouvre ⚙ puis « 📨 Envoyer un rapport de test » — ce formulaire se remplit tout seul.
+        **Thanks for testing Chutoki!** Easiest way: in Chutoki, open ⚙ then "📨 Send a test report" — this form fills itself in.
+  - type: textarea
+    id: config
+    attributes:
+      label: "Rapport de Chutoki / Chutoki report"
+      description: "Collé automatiquement par l'appli (matériel uniquement, rien de personnel). / Pasted automatically by the app (hardware only, nothing personal)."
+      render: text
+    validations:
+      required: true
+  - type: dropdown
+    id: calm
+    attributes:
+      label: "Les ventilateurs se sont-ils calmés au repos ? / Did the fans calm down at idle?"
+      options:
+        - "Oui / Yes"
+        - "Un peu / A little"
+        - "Non / No"
+        - "Aucun ventilateur piloté / No fan controlled"
+    validations:
+      required: true
+  - type: dropdown
+    id: load
+    attributes:
+      label: "En jeu ou sous charge, ont-ils accéléré correctement ? / Under load, did they speed up properly?"
+      options:
+        - "Oui / Yes"
+        - "Trop / Too much"
+        - "Pas assez / Not enough"
+        - "Pas testé / Not tested"
+  - type: input
+    id: noise
+    attributes:
+      label: "Bruit avant → après (sur 10) / Noise before → after (out of 10)"
+      placeholder: "ex. 7 → 2"
+  - type: dropdown
+    id: antivirus
+    attributes:
+      label: "Un antivirus ou Windows a-t-il bloqué Chutoki ? / Did an antivirus or Windows block Chutoki?"
+      options:
+        - "Non / No"
+        - "Avertissement SmartScreen seulement / SmartScreen warning only"
+        - "Oui, bloqué / Yes, blocked"
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Remarques, problèmes, idées / Notes, problems, ideas"
+      placeholder: "Ce qui a marché, ce qui a coincé... / What worked, what didn't..."

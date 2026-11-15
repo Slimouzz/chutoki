@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: "🌐 Site de Chutoki / Chutoki website"
+    url: https://slimouzz.github.io/chutoki/
+    about: "Téléchargement, installation, questions fréquentes / Download, install, FAQ"
+  - name: "✉️ Contact"
+    url: https://slimouzz.github.io/chutoki/#contact
+    about: "contact-chutoki@proton.me"

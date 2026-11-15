@@ -1,4 +1,4 @@
-﻿# Compile Chutoki Free dans .\dist (aucun SDK requis : utilise le compilateur C# de Windows)
+# Compile Chutoki Free dans .\dist (aucun SDK requis : utilise le compilateur C# de Windows)
 param([string]$PreviewOut = "")
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
@@ -6,7 +6,7 @@ $csc = "$env:WINDIR\Microsoft.NET\Framework64\v4.0.30319\csc.exe"
 $dist = Join-Path $root 'dist'
 $lib = Join-Path $root 'lib'
 $src = Join-Path $root 'src'
-$version = '1.1.0'
+$version = '1.2.0'
 New-Item -ItemType Directory -Force $dist | Out-Null
 if (-not (Test-Path "$src\app.ico")) { & "$root\tools\make-icon.ps1" -Out "$src\app.ico" -Png "$root\logo.png" }
 

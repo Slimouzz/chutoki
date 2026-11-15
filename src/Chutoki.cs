@@ -27,9 +27,9 @@ using LibreHardwareMonitor.Hardware;
 [assembly: AssemblyDescription("Chutoki Free - le ventilo qui fait chut")]
 [assembly: AssemblyCompany("Radjouh Slim")]
 [assembly: AssemblyCopyright("Copyright (c) 2026 Radjouh Slim - Licence MIT")]
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
-[assembly: AssemblyInformationalVersion("1.1.0")]
+[assembly: AssemblyVersion("1.2.0.0")]
+[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyInformationalVersion("1.2.0")]
 
 namespace Chutoki {
 
@@ -37,11 +37,12 @@ namespace Chutoki {
 static class App {
     public const string Name = "Chutoki";
     public const string Edition = "Free";
-    public const string Version = "1.1.0";
+    public const string Version = "1.2.0";
     public const string Site = "https://slimouzz.github.io/chutoki/";
     public const string NewsUrl = Site + "news.json";
+    public const string Repo = "https://github.com/Slimouzz/chutoki";
     public const string Author = "Radjouh Slim";
-    public const string Email = "slim.radjouh@gmail.com";
+    public const string Email = "contact-chutoki@proton.me";
     public const string Year = "2026";
     public const string PawnIoUrl = "https://github.com/namazso/PawnIO.Setup/releases/latest";
     public const string TaskName = "Chutoki";
@@ -859,6 +860,10 @@ class AdvancedForm : Form {
         lInfo = new Label { Left = 20, Top = 14, Width = 720, Height = 40, ForeColor = Theme.Dim, Font = Theme.F(9f) };
         Controls.Add(lInfo);
         Controls.Add(new Label { Text = App.T("Ventilateurs", "Fans"), Left = 20, Top = 58, AutoSize = true, Font = Theme.Semi(11f) });
+        var lTest = new LinkLabel { Text = "📨 " + App.T("Envoyer un rapport de test", "Send a test report"), AutoSize = false, Left = 400, Top = 58, Width = 340, Height = 24,
+            TextAlign = ContentAlignment.MiddleRight, LinkColor = Theme.Accent, ActiveLinkColor = Theme.Accent, Font = Theme.F(9.5f) };
+        lTest.LinkClicked += delegate { ShowTestReport(); };
+        Controls.Add(lTest);
 
         grid = new DataGridView {
             Left = 20, Top = 86, Width = 720, Height = 230, BackgroundColor = Theme.Card, BorderStyle = BorderStyle.None,
@@ -952,6 +957,74 @@ class AdvancedForm : Form {
             row.Cells[1].Value = r > 0 ? r.ToString("0") : App.T("arrêté / absent", "stopped / none");
             row.Cells[2].Value = (ch.Role == Role.Bios || e.Paused || !e.CanControl) ? "BIOS" : ch.Duty.ToString("0") + " %" + (ch.FloorBoost > 0 ? "  (min +" + ch.FloorBoost.ToString("0") + ")" : "");
         }
+    }
+
+    // ---------- rapport de test : uniquement le matériel et le comportement, rien de personnel.
+    // La personne voit tout le texte avant de choisir de l'envoyer (rien ne part automatiquement).
+    string TestReportText() {
+        var sb = new System.Text.StringBuilder();
+        Func<float, string> f0 = v => float.IsNaN(v) ? "-" : v.ToString("0", CultureInfo.InvariantCulture);
+        sb.AppendLine("Chutoki " + App.Version + " (" + App.Lang + ")");
+        sb.AppendLine("Windows: " + WinVersion());
+        sb.AppendLine("CPU: " + e.CpuName);
+        sb.AppendLine("GPU: " + e.GpuName + (e.GpuHotspot ? " (hotspot)" : ""));
+        sb.AppendLine("Motherboard: " + e.BoardName);
+        sb.AppendLine("Cooling: " + cooling + " | Laptop: " + (e.Laptop ? "yes" : "no") + " | PawnIO: " + (e.PawnIoMissing ? "missing" : "ok") +
+            (e.InitFailed ? " | Init error: " + e.InitError : ""));
+        sb.AppendLine("Mode: " + e.Mode + " (" + e.Eff.Key + ")" + (e.Paused ? " paused" : ""));
+        sb.AppendLine("Now: CPU " + (e.CpuTemp.HasValue ? e.CpuTemp.Value.ToString("0") : "-") + " C, GPU " + (e.GpuTemp.HasValue ? e.GpuTemp.Value.ToString("0") : "-") +
+            " C, CPU load " + (e.CpuLoad.HasValue ? e.CpuLoad.Value.ToString("0") : "-") + " %, GPU load " + (e.GpuLoad.HasValue ? e.GpuLoad.Value.ToString("0") : "-") + " %");
+        sb.AppendLine("Session: " + (int)(DateTime.Now - e.SessionStart).TotalMinutes + " min, CPU max " + f0(e.MaxCpu) + " C, GPU max " + f0(e.MaxGpu) +
+            " C, fans max " + e.MaxDuty.ToString("0") + " %, emergencies " + e.Emergencies + ", alerts " + e.AlertsCount);
+        sb.AppendLine("Fans (" + e.Chans.Count + "):");
+        foreach (var ch in e.Chans)
+            sb.AppendLine("  - " + ch.Name + " [" + ch.Id + "] role=" + ch.Role + " rpm=" + Engine.Rpm(ch.Rpm).ToString("0") +
+                " duty=" + (ch.Controlled ? ch.Duty.ToString("0") + "%" : "BIOS") + (ch.FloorBoost > 0 ? " floor+" + ch.FloorBoost.ToString("0") : "") +
+                (ch.PumpLike ? " pump-like" : ""));
+        return sb.ToString();
+    }
+    static string WinVersion() {
+        try {
+            var k = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+            string build = k.GetValue("CurrentBuild") as string ?? "";
+            string name = (k.GetValue("ProductName") as string ?? "Windows");
+            int b; if (int.TryParse(build, out b) && b >= 22000) name = name.Replace("Windows 10", "Windows 11");
+            return name + " " + (k.GetValue("DisplayVersion") as string ?? "") + " (build " + build + ")";
+        } catch { return Environment.OSVersion.VersionString; }
+    }
+
+    void ShowTestReport() {
+        string text = TestReportText();
+        var f = new Form(); Theme.Prepare(f, 640, 560, App.T("Rapport de test", "Test report"));
+        f.StartPosition = FormStartPosition.CenterParent; f.MinimizeBox = false; f.ShowInTaskbar = false;
+        f.Controls.Add(new Label { Left = 16, Top = 14, Width = 608, Height = 64, Font = Theme.F(9.5f),
+            Text = App.T("Merci de tester Chutoki ! Ce rapport contient seulement ton matériel et ce que fait l'appli (rien de personnel). Ajoute ce que tu as remarqué (bruit, problèmes), puis envoie-le.",
+                         "Thanks for testing Chutoki! This report only contains your hardware and what the app does (nothing personal). Add what you noticed (noise, problems), then send it.") });
+        var box = new TextBox { Left = 16, Top = 84, Width = 608, Height = 300, Multiline = true, ReadOnly = true, ScrollBars = ScrollBars.Vertical,
+            Font = new Font("Consolas", 9f), BackColor = Theme.Card, ForeColor = Theme.Txt, Text = text.Replace("\n", "\r\n").Replace("\r\r", "\r") };
+        f.Controls.Add(box);
+        f.Controls.Add(new Label { Text = App.T("Ton avis (facultatif) :", "Your feedback (optional):"), Left = 16, Top = 394, AutoSize = true, Font = Theme.Semi(10f) });
+        var note = new TextBox { Left = 16, Top = 420, Width = 608, Height = 60, Multiline = true, BackColor = Theme.Card, ForeColor = Theme.Txt, Font = Theme.F(9.5f) };
+        f.Controls.Add(note);
+        Func<string> full = () => text + (note.Text.Trim().Length > 0 ? "\nFeedback:\n" + note.Text.Trim() + "\n" : "");
+        var bGit = Theme.Btn(App.T("Envoyer sur GitHub", "Send on GitHub"), 16, 504, 200, 38, true);
+        bGit.Click += delegate {
+            string title = "[Test] " + e.BoardName;
+            string url = App.Repo + "/issues/new?template=test-report.yml&title=" + Uri.EscapeDataString(title) + "&config=" + Uri.EscapeDataString(full());
+            if (url.Length > 7500) url = url.Substring(0, 7500);
+            App.Open(url);
+        };
+        var bMail = Theme.Btn(App.T("Envoyer par email", "Send by email"), 224, 504, 170, 38);
+        bMail.Click += delegate {
+            string body = full(); if (body.Length > 1800) body = body.Substring(0, 1800);
+            App.Open("mailto:" + App.Email + "?subject=" + Uri.EscapeDataString("Chutoki - test " + e.BoardName) + "&body=" + Uri.EscapeDataString(body));
+        };
+        var bCopy = Theme.Btn(App.T("Copier", "Copy"), 402, 504, 110, 38);
+        bCopy.Click += delegate { try { Clipboard.SetText(full()); bCopy.Text = "✓"; } catch { } };
+        var bClose = Theme.Btn(App.T("Fermer", "Close"), 520, 504, 104, 38);
+        bClose.Click += delegate { f.Close(); };
+        f.Controls.Add(bGit); f.Controls.Add(bMail); f.Controls.Add(bCopy); f.Controls.Add(bClose);
+        f.ShowDialog(this); f.Dispose();
     }
 
     void ShowReport() {

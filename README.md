@@ -36,6 +36,34 @@ Chutoki automatically adjusts your motherboard fans: **quiet when your PC rests,
 
 Install: [PawnIO](https://github.com/namazso/PawnIO.Setup/releases/latest) driver once, then download from [Releases](../../releases/latest) and run `Chutoki.exe`. Details: [README.txt](README.txt)
 
+## 🇮🇹 Italiano
+
+Chutoki regola da solo le ventole della scheda madre: **silenzioso quando il PC riposa, più forte quando lavora**, con protezioni se scalda. Gratis, senza pubblicità, open source.
+Installa una volta il driver gratuito [PawnIO](https://github.com/namazso/PawnIO.Setup/releases/latest), poi scarica Chutoki dalle [Releases](../../releases/latest) e avvia `Chutoki.exe`.
+
+## 🇪🇸 Español
+
+Chutoki ajusta solo los ventiladores de tu placa base: **silencioso cuando el PC descansa, más fuerte cuando trabaja**, con protecciones si se calienta. Gratis, sin anuncios, de código abierto.
+Instala una vez el controlador gratuito [PawnIO](https://github.com/namazso/PawnIO.Setup/releases/latest), luego descarga Chutoki desde [Releases](../../releases/latest) y abre `Chutoki.exe`.
+
+## 🇨🇳 中文
+
+Chutoki 自动调节主板风扇：**电脑空闲时安静，工作时加强散热**，温度升高时有多重保护。免费、无广告、开源。
+先安装一次免费驱动 [PawnIO](https://github.com/namazso/PawnIO.Setup/releases/latest)，然后从 [Releases](../../releases/latest) 下载 Chutoki 并运行 `Chutoki.exe`。
+
+## 🇯🇵 日本語
+
+Chutoki はマザーボードのファンを自動で調整します：**PCが休んでいるときは静かに、作業中はしっかり冷却**。熱くなったときの保護機能付き。無料・広告なし・オープンソース。
+無料ドライバー [PawnIO](https://github.com/namazso/PawnIO.Setup/releases/latest) を一度インストールし、[Releases](../../releases/latest) から Chutoki をダウンロードして `Chutoki.exe` を起動してください。
+
+## 🧪 Testeurs recherchés / Testers wanted
+
+Chutoki a besoin de tests sur un maximum de cartes mères ! Dans l'appli : ⚙ → **📨 Envoyer un rapport de test** (matériel uniquement, rien de personnel).
+Chutoki needs testing on as many motherboards as possible! In the app: ⚙ → **📨 Send a test report** (hardware only, nothing personal).
+→ [Compatibilité / Compatibility](https://slimouzz.github.io/chutoki/compatibilite.html) · [Envoyer un rapport / Send a report](../../issues/new?template=test-report.yml)
+
+Contact : contact-chutoki@proton.me
+
 ## Compiler / Build
 
 Aucun SDK nécessaire / No SDK needed (uses the C# compiler built into Windows):

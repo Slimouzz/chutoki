@@ -125,6 +125,19 @@ static class Tr {
           "组件：LibreHardwareMonitor (MPL-2.0)、PawnIO 驱动 (namazso)、HidSharp (Apache-2.0)、.NET 库 (MIT) 等 — 详见“第三方组件”。",
           "コンポーネント：LibreHardwareMonitor (MPL-2.0)、PawnIO ドライバー (namazso)、HidSharp (Apache-2.0)、.NET ライブラリ (MIT) など — 「サードパーティ」を参照。");
 
+        // --- rapport de test
+        A("Send a test report", "Invia un rapporto di test", "Enviar un informe de prueba", "发送测试报告", "テストレポートを送る");
+        A("Test report", "Rapporto di test", "Informe de prueba", "测试报告", "テストレポート");
+        A("Thanks for testing Chutoki! This report only contains your hardware and what the app does (nothing personal). Add what you noticed (noise, problems), then send it.",
+          "Grazie per aver provato Chutoki! Questo rapporto contiene solo il tuo hardware e cosa fa l'app (niente di personale). Aggiungi ciò che hai notato (rumore, problemi), poi invialo.",
+          "¡Gracias por probar Chutoki! Este informe solo contiene tu hardware y lo que hace la aplicación (nada personal). Añade lo que hayas notado (ruido, problemas) y envíalo.",
+          "感谢测试 Chutoki！本报告只包含你的硬件信息和软件的运行情况（不含任何个人信息）。补充你注意到的情况（噪音、问题），然后发送。",
+          "Chutoki をテストしていただきありがとうございます！このレポートにはハードウェアとアプリの動作だけが含まれます（個人情報は含みません）。気づいたこと（騒音、問題）を書き添えて送信してください。");
+        A("Your feedback (optional):", "Il tuo parere (facoltativo):", "Tu opinión (opcional):", "你的反馈（可选）：", "ご意見（任意）：");
+        A("Send on GitHub", "Invia su GitHub", "Enviar en GitHub", "在 GitHub 上发送", "GitHub で送信");
+        A("Send by email", "Invia per email", "Enviar por email", "通过邮件发送", "メールで送信");
+        A("Copy", "Copia", "Copiar", "复制", "コピー");
+
         // --- nouveautés
         A("New version {0} available! Click to download.", "Nuova versione {0} disponibile! Clicca per scaricarla.", "¡Nueva versión {0} disponible! Haz clic para descargarla.", "新版本 {0} 已发布！点击下载。", "新しいバージョン {0} があります！クリックしてダウンロード。");
         A("News from Chutoki", "Novità da Chutoki", "Novedades de Chutoki", "来自 Chutoki 的消息", "Chutoki からのお知らせ");
